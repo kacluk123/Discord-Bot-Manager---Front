@@ -4,6 +4,7 @@ import { UserModel } from '../services/api/user/user.model'
 import { useRouter } from 'next/router'
 import useUser from '../remote/user'
 import useSWR from 'swr'
+import { Spin } from 'antd'
 
 function ProtectRoute<T>(Component: React.ComponentType<T>) {
   return (props: T & { code?: string }) => {
@@ -31,7 +32,7 @@ function ProtectRoute<T>(Component: React.ComponentType<T>) {
     
 
     if (!data) {
-      return null
+      return <Spin />
     } 
 
     return <Component {...props} /> 
