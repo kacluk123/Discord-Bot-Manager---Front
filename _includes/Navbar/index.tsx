@@ -30,7 +30,7 @@ const Navbar = () => {
           <Styled.NavbarNavigation>
             <Styled.NavbarList>
               {links.map(({ link, text }) => (
-                <Styled.NavbarLi isActive={router.pathname === link}>
+                <Styled.NavbarLi key={link} isActive={router.pathname === link}>
                   <Link href={link}>
                     {text}
                   </Link>

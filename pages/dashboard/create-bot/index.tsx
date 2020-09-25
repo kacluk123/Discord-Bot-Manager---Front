@@ -31,9 +31,9 @@ interface ISingleBotCard {
 
 const SingleBotCard: React.FC<ISingleBotCard> = ({ children, headerText, botName, description }) => {
   const router = useRouter()
-  console.log(router.pathname)
+
   return (
-    <Link href={`${router.pathname}/form/?bot=${botName}`}>
+    <Link href={`${router.pathname}/form?bot=${botName}`}>
       <Styled.CreateBotSingle>
         {children}
         <Styled.CreateBotSingleHeader>{headerText}</Styled.CreateBotSingleHeader>
