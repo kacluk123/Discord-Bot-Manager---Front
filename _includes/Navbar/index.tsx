@@ -15,6 +15,10 @@ const links = [
   {
     link: '/dashboard/create-bot',
     text: 'Create bot'
+  },
+  {
+    link: '/dashboard/bot-list',
+    text: 'Bots list'
   }
 ]
 

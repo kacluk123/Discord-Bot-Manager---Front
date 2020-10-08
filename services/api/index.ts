@@ -10,6 +10,7 @@ export const api = {
     authorize: user.authorizeUser
   },
   bot: {
-    createBot: bot.addBot
+    createBot: bot.addBot,
+    getAllBots: bot.getBots
   }
 }
