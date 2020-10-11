@@ -4,19 +4,28 @@ import MainLayout from '../../../layouts/Main'
 import useSWR from 'swr'
 import { api } from '../../../services/api'
 import BotList from './list'
+import { useRouter } from "next/router";
+import ProtectRoute from '../../../hoc/ProtectRoute'
 
 const BotsListContainer: React.FC = () => {
+  const router = useRouter()
   const { 
     data, 
     error, 
     mutate, 
   } = useSWR('/api/bots/get-bots', api.bot.getAllBots)
 
-  return (
+  React.useEffect(() => {
+    if (data) {
+      router.push(`/dashboard/bot-list/${data[0].id}`)
+    }
+  }, [data])
+
+  return error ? (
     <MainLayout>
-      <BotList bots={data} />
+      Failed to load bot list
     </MainLayout>
-  )
+  ) : <MainLayout />
 }
 
-export default BotsListContainer
+export default ProtectRoute(BotsListContainer)

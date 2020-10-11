@@ -24,7 +24,7 @@ interface ISingleBotCard {
 }
 
 const SingleBotCard: React.FC<ISingleBotCard> = ({ bot }) => (
-  <Card style={{ width: 300 }}>
+  <Card style={{ width: '100%' }}>
     <Meta 
       title={bot.name}
       description={bot.type}

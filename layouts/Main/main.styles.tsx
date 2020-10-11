@@ -4,4 +4,5 @@ export const Main = styled.div.attrs({
   className: "Main"
 })`
   height: 100vh;
+  overflow: hidden;
 `
