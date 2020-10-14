@@ -20,7 +20,7 @@ const BotsListContainer: React.FC<BotsListContainer> = ({ botId }) => {
 
   return (
     <MainLayout>
-      {data && <BotList bots={data} />}
+      {data && <BotList bots={data.bots} currentPickedBot={botId} />}
     </MainLayout>
   )
 }

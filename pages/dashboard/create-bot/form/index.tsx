@@ -19,13 +19,11 @@ const CreateBotForm: React.FC = () => {
   })
 
   const createBot = async (data: CreateBotForm) => {
-    console.log(data)
     const response = await api.bot.createBot({
       ...data,
       type: router.query.bot,
       isActive: false,
     })
-    console.log(response)
   }
 
   return (

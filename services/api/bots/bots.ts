@@ -1,21 +1,22 @@
 import { mainApi } from '../instance'
-import { IServerResponseBot, IServerRequestBot } from './bots.types'
+import { IServerResponseBot, IServerRequestBot, IServerResponseBots, IUIResponseBots, IUIResponseBot } from './bots.types'
+import { unpackBot, unpackBots } from './bots.mappers'
 
 const botURL = 'bots/bot'
 const botsURL = 'bots/get-bots'
 
-export const addBot = async (body: IServerRequestBot): Promise<IServerResponseBot> => {
+export const addBot = async (body: IServerRequestBot): Promise<IUIResponseBot> => {
   const { data } = await mainApi.post<IServerResponseBot>(botURL, body, {
     withCredentials: true
   })
 
-  return data
+  return unpackBot(data)
 }
 
-export const getBots = async (): Promise<IServerResponseBot[]> => {
-  const { data } = await mainApi.get<IServerResponseBot[]>(botsURL, {
+export const getBots = async (): Promise<IUIResponseBots> => {
+  const { data } = await mainApi.get<IServerResponseBots>(botsURL, {
     withCredentials: true
   })
 
-  return data
+  return unpackBots(data)
 }

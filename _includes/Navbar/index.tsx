@@ -7,18 +7,21 @@ import Link from 'next/link'
 import { UserAddOutlined } from '@ant-design/icons'
 import { useRouter } from "next/router";
 
-const links = [
+const links = (routePathname: string) => [
   {
     link: '/dashboard',
-    text: 'Main'
+    text: 'Main',
+    isActive: routePathname === '/dashboard'
   },
   {
     link: '/dashboard/create-bot',
-    text: 'Create bot'
+    text: 'Create bot',
+    isActive: routePathname.includes('/dashboard/create-bot')
   },
   {
     link: '/dashboard/bot-list',
-    text: 'Bots list'
+    text: 'Bots list',
+    isActive: routePathname.includes('/dashboard/bot-list')
   }
 ]
 
@@ -33,8 +36,8 @@ const Navbar = () => {
         <Styled.NavContent>
           <Styled.NavbarNavigation>
             <Styled.NavbarList>
-              {links.map(({ link, text }) => (
-                <Styled.NavbarLi key={link} isActive={router.pathname === link}>
+              {links(router.pathname).map(({ link, text, isActive }) => (
+                <Styled.NavbarLi key={link} isActive={isActive}>
                   <Link href={link}>
                     {text}
                   </Link>
