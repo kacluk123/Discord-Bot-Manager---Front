@@ -1,7 +1,7 @@
 import * as React from 'react'
 import MainLayout from '../../../layouts/Main'
 import { IServerResponseBot, IUIResponseBot } from '../../../services/api/bots/bots.types'
-import * as Styled from'./bot-list.styles'
+import * as Styled from'./BotList.styles'
 import { Skeleton, Switch, Card, Avatar } from 'antd';
 import { MoneyCollectOutlined } from '@ant-design/icons';
 import { useRouter } from "next/router";

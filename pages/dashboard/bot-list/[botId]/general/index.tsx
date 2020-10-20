@@ -1,15 +1,15 @@
-import Dashboard from '../../components/Dashboard'
+import SingleBotFormGeneral from '../../../../../components/Dashboard/BotList/SingleBotFormGeneral'
 import { GetServerSidePropsContext } from 'next'
 
-export default Dashboard
+export default SingleBotFormGeneral
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const code = context.query.code 
+  const botId = context.query.botId 
   
-  if (code) {
+  if (botId) {
     return {
       props: {
-        code
+        botId
       },
     }
   }
