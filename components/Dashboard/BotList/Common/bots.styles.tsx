@@ -7,7 +7,7 @@ export const BotPageContainer = styled.div.attrs({
   grid-auto-flow: column;
   grid-column-gap: 30px;
   width: 100%;
-  grid-auto-columns: max-content;
+  grid-template-columns: max-content 1fr;
 `
 
 export const BotFormPageLayout = styled.div.attrs({
@@ -15,6 +15,7 @@ export const BotFormPageLayout = styled.div.attrs({
 })`
   display: grid;
   grid-row-gap: 30px;
-  grid-auto-rows: max-content;
-  grid-auto-columns: max-content;
+  grid-auto-flow: column;
+  grid-template-rows: max-content 1fr;
+  /* grid-template-columns: max-content 1fr; */
 `

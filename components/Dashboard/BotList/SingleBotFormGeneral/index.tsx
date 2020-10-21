@@ -20,29 +20,22 @@ const BotsListContainer: React.FC<BotsListContainer> = ({ botId }) => {
     mutate, 
   } = useSWR('/api/bots/get-bots', api.bot.getAllBots)
 
+  // const currentPickedBot = React.useMemo(() => {
+  //   return data?.bots ? data?.bots?.find(bot => bot.id === botId) : null
+  // }, [botId])
+
+  const getCurrentPickedBot = () => {
+    return data.bots.find(bot => bot.id === botId)
+  }
+
   return (
     <MainLayout>
       <BotPageContainer>
-        {data && <BotList bots={data.bots} currentPickedBot={botId} />}
-        <SingleBotFormGeneral />
+        {data?.bots && <BotList bots={data.bots} currentPickedBot={botId} />}
+        {data?.bots ? <SingleBotFormGeneral bot={getCurrentPickedBot()} /> : null}
       </BotPageContainer>
     </MainLayout>
   )
-}
-
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const botId = context.query.botId 
-  
-  if (botId) {
-    return {
-      props: {
-        botId
-      },
-    }
-  }
-  return {
-    props: {}
-  }
 }
 
 export default ProtectRoute(BotsListContainer)

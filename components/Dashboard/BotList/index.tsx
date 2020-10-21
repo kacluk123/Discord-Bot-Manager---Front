@@ -17,7 +17,7 @@ const BotsListContainer: React.FC = () => {
 
   React.useEffect(() => {
     if (data) {
-      router.push(`/dashboard/bot-list/${data.bots[0].id}`)
+      router.push(`/dashboard/bot-list/${data.bots[0].id}/general`)
     }
   }, [data])
   

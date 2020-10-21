@@ -11,6 +11,7 @@ export const api = {
   },
   bot: {
     createBot: bot.addBot,
-    getAllBots: bot.getBots
+    getAllBots: bot.getBots,
+    editBot: bot.editBot
   }
 }

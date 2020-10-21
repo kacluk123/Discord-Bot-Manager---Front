@@ -31,7 +31,7 @@ const SingleBotCard: React.FC<ISingleBotCard> = ({ bot, currentPickedBot }) => {
   const router = useRouter()
 
   return (
-    <Link href={`/dashboard/bot-list/${bot.id}`}>
+    <Link href={`/dashboard/bot-list/${bot.id}/general`}>
       <Styled.BotCardContainer isBotPicked={currentPickedBot === bot.id}>
         <Styled.BotCard style={{ width: '100%' }} isBotPicked={currentPickedBot === bot.id} hoverable>
           <Meta 
