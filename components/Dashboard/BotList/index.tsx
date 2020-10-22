@@ -6,6 +6,7 @@ import { api } from '../../../services/api'
 import BotList from './list'
 import { useRouter } from "next/router";
 import ProtectRoute from '../../../hoc/ProtectRoute'
+import useBots from '../../../remote/bots'
 
 const BotsListContainer: React.FC = () => {
   const router = useRouter()
@@ -13,7 +14,7 @@ const BotsListContainer: React.FC = () => {
     data, 
     error, 
     mutate, 
-  } = useSWR('/api/bots/get-bots', api.bot.getAllBots)
+  } = useBots()
 
   React.useEffect(() => {
     if (data) {

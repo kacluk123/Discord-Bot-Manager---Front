@@ -5,12 +5,15 @@ import { IUIResponseBot } from '../../../../services/api/bots/bots.types'
 import { Form, Input, Button, Checkbox } from 'antd';
 import { Controller, useForm } from 'react-hook-form'
 import { api } from '../../../../services/api'
+import useBots from '../../../../remote/bots'
 
 interface SingleBotFormGeneral {
   bot: IUIResponseBot
 }
 
 const SingleBotFormGeneral: React.FC<SingleBotFormGeneral> = ({ bot }) => {
+  const { replaceBot } = useBots()
+  const [isPending, setPending] = React.useState<boolean>(false)
   const { control, handleSubmit, reset } = useForm({ defaultValues: {
     name: bot.name,
     token: bot.token
@@ -21,7 +24,15 @@ const SingleBotFormGeneral: React.FC<SingleBotFormGeneral> = ({ bot }) => {
   }, [bot])
 
   const onSubmit = async (data: any) => {
-    await api.bot.editBot(data, bot.id)
+    setPending(true)
+    try {
+      const response = await api.bot.editBot(data, bot.id)
+      replaceBot(response)
+    } catch {
+      console.error('An error occured')
+    } finally {
+      setPending(false)
+    }
   }
   
   return (
@@ -46,7 +57,7 @@ const SingleBotFormGeneral: React.FC<SingleBotFormGeneral> = ({ bot }) => {
               rules={{required: true}}
             />
           </Form.Item>
-          <Button type="primary" onClick={handleSubmit(onSubmit)}>
+          <Button type="primary" onClick={handleSubmit(onSubmit)} loading={isPending}>
             Save
           </Button>
         </Styled.CreateBotFormContent>
@@ -55,4 +66,4 @@ const SingleBotFormGeneral: React.FC<SingleBotFormGeneral> = ({ bot }) => {
   )
 }
 
-export default SingleBotFormGeneral
+export default React.memo(SingleBotFormGeneral)

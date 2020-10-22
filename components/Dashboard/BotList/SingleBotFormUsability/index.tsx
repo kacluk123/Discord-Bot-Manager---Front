@@ -7,14 +7,14 @@ import BotList from '../list'
 import { GetServerSidePropsContext } from 'next'
 import ProtectRoute from '../../../../hoc/ProtectRoute'
 import { BotPageContainer } from '../Common/bots.styles'
-import SingleBotFormGeneral from './SingleBotFormGeneral'
+// import SingleBotFormGeneral from './SingleBotFormGeneral'
 import useBots from '../../../../remote/bots'
 
 interface BotsListContainer {
   botId?: string
 }
 
-const BotsListContainer: React.FC<BotsListContainer> = ({ botId }) => {
+const UsabilityBotsListContainer: React.FC<BotsListContainer> = ({ botId }) => {
   const { 
     data, 
     error, 
@@ -26,10 +26,10 @@ const BotsListContainer: React.FC<BotsListContainer> = ({ botId }) => {
     <MainLayout>
       <BotPageContainer>
         {data?.bots && <BotList bots={data.bots} currentPickedBot={botId} />}
-        {data?.bots ? <SingleBotFormGeneral bot={getCurrentPickedBot(botId)} /> : null}
+        {/* {data?.bots ? <SingleBotFormGeneral bot={getCurrentPickedBot(botId)} /> : null} */}
       </BotPageContainer>
     </MainLayout>
   )
 }
 
-export default ProtectRoute(BotsListContainer)
+export default ProtectRoute(UsabilityBotsListContainer)
