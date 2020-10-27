@@ -3,10 +3,12 @@ import * as Styled from './bots.styles'
 import { Menu } from 'antd';
 import { useRouter } from "next/router";
 import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
+import Link from 'next/link'
 
 const BotFormPageLayout: React.FC = ({ children }) => {
   const router = useRouter()
-
+  const { botId } = router.query
+  console.log(router)
   const getCurrentOpenedSettingLabel = () => {
     if (router.pathname.includes('general')) {
       return 'general'
@@ -15,15 +17,19 @@ const BotFormPageLayout: React.FC = ({ children }) => {
       return 'usability'
     }
   }
-
+  console.log(botId)
   return (
     <Styled.BotFormPageLayout>
       <Menu mode="horizontal" selectedKeys={[getCurrentOpenedSettingLabel()]}>
         <Menu.Item key="general" icon={<SettingOutlined />}>
-          General
+          <Link href={`/dashboard/bot-list/${botId}/general`}>
+            General
+          </Link>
         </Menu.Item>
         <Menu.Item key="usability" icon={<SettingOutlined />}>
-          Usability
+          <Link href={`/dashboard/bot-list/${botId}/usability`}>
+            Usability
+          </Link>
         </Menu.Item>
       </Menu>
       {children}

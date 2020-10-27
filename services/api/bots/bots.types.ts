@@ -1,4 +1,4 @@
-export type botTypes = 'music' | 'ads'
+export type botTypes = 'music' | 'ad'
 
 export interface IServerRequestBot {
   name: string

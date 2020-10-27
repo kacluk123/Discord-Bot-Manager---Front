@@ -9,6 +9,7 @@ import ProtectRoute from '../../../../hoc/ProtectRoute'
 import { BotPageContainer } from '../Common/bots.styles'
 // import SingleBotFormGeneral from './SingleBotFormGeneral'
 import useBots from '../../../../remote/bots'
+import BotFormPicker from './BotFormPicker/botFormPicker'
 
 interface BotsListContainer {
   botId?: string
@@ -26,7 +27,7 @@ const UsabilityBotsListContainer: React.FC<BotsListContainer> = ({ botId }) => {
     <MainLayout>
       <BotPageContainer>
         {data?.bots && <BotList bots={data.bots} currentPickedBot={botId} />}
-        {/* {data?.bots ? <SingleBotFormGeneral bot={getCurrentPickedBot(botId)} /> : null} */}
+        {data?.bots ? <BotFormPicker bot={getCurrentPickedBot(botId)} /> : null}
       </BotPageContainer>
     </MainLayout>
   )
