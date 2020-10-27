@@ -8,7 +8,7 @@ import Link from 'next/link'
 const BotFormPageLayout: React.FC = ({ children }) => {
   const router = useRouter()
   const { botId } = router.query
-  console.log(router)
+
   const getCurrentOpenedSettingLabel = () => {
     if (router.pathname.includes('general')) {
       return 'general'

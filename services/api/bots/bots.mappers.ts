@@ -8,13 +8,12 @@ import {
   botTypes 
 } from './bots.types'
 
-const botFactory = (config: IUIResponseAdBotConfig, botType: botTypes): IUIResponseAdBotConfig => {
+const botFactory = (config: IUIResponseAdBotConfig | null, botType: botTypes): IUIResponseAdBotConfig => {
   switch (botType) {
-    case 'ads': {
+    case 'ad': {
       return {
-        aDtext: config.aDtext,
-        id: config.id,
-        timeToResend: config.timeToResend
+        aDtext: config?.aDtext || "",
+        timeToResend: config?.timeToResend || 0
       }
     }
   }
