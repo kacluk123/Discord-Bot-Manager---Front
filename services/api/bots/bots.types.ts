@@ -32,18 +32,27 @@ export interface IServerResponseBots {
 
 export interface IServerResponseAdBotConfig {
   id: number
-  timeToResend: number
-  aDtext: string
+  ads: ServerResponseBotAdConfigAds[]
+}
+
+export interface ServerResponseBotAdConfigAds {
+  day: string
+  id: string
+  time: string
 }
 
 export interface IUIResponseAdBotConfig {
-  timeToResend: number
-  aDtext: string
+  ads: ServerResponseBotAdConfigAds[]
 }
 
 export interface ServerRequestBotAdConfig {
-  timeToResend: number
-  aDtext: string
+  ads: ServerRequestBotAdConfigAds[]
+}
+
+export interface ServerRequestBotAdConfigAds {
+  day: string
+  id: string
+  time: string
 }
 
 export type BotConfigs = ServerRequestBotAdConfig

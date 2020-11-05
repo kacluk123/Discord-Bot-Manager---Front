@@ -12,8 +12,7 @@ const botFactory = (config: IUIResponseAdBotConfig | null, botType: botTypes): I
   switch (botType) {
     case 'ad': {
       return {
-        aDtext: config?.aDtext || "",
-        timeToResend: config?.timeToResend || 0
+        ads: config.ads || []
       }
     }
   }

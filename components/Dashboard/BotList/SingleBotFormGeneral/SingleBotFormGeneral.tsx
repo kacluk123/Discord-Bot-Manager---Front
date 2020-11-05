@@ -2,7 +2,7 @@ import * as Styled from './SingleBotFormGeneral.styles'
 import * as React from 'react'
 import BotFormPageLayout from '../Common/BotFormPageLayout'
 import { IUIResponseBot } from '../../../../services/api/bots/bots.types'
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, Switch } from 'antd';
 import { Controller, useForm } from 'react-hook-form'
 import { api } from '../../../../services/api'
 import useBots from '../../../../remote/bots'
@@ -16,7 +16,8 @@ const SingleBotFormGeneral: React.FC<SingleBotFormGeneral> = ({ bot }) => {
   const [isPending, setPending] = React.useState<boolean>(false)
   const { control, handleSubmit, reset } = useForm({ defaultValues: {
     name: bot.name,
-    token: bot.token
+    token: bot.token,
+    isActive: bot.isActive
   }})
 
   React.useEffect(() => {
@@ -57,6 +58,13 @@ const SingleBotFormGeneral: React.FC<SingleBotFormGeneral> = ({ bot }) => {
               rules={{required: true}}
             />
           </Form.Item>
+          <Controller 
+            as={Switch}
+            name='isActive'
+            defaultChecked={bot.isActive}
+            control={control}
+            // rules={{required: true}}
+          />
           <Button type="primary" onClick={handleSubmit(onSubmit)} loading={isPending}>
             Save
           </Button>

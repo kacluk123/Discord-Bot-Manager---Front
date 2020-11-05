@@ -1,42 +1,77 @@
 import * as React from 'react'
 import * as Styled from './ad.styles'
-import { IUIResponseAdBotConfig } from '../../../../../../../services/api/bots/bots.types'
+import { IUIResponseAdBotConfig, ServerRequestBotAdConfigAds } from '../../../../../../../services/api/bots/bots.types'
 import { Form, Input, Button, Checkbox } from 'antd';
-import { Controller, useForm } from 'react-hook-form'
+import { Controller, useForm, useFieldArray } from 'react-hook-form'
+import { api } from '../../../../../../../services/api'
+import { useRouter } from "next/router";
+import AdInfo from './AdInfo'
+import moment from 'moment'
 
 interface AdBot {
   config: IUIResponseAdBotConfig
 }
 
 const AdBot: React.FC<AdBot> = ({ config }) => {
-  const { control, handleSubmit } = useForm()
-  
+  const [isPending, setPending] = React.useState<boolean>(false)
+  const router = useRouter()
+  const { botId } = router.query
+  const { control, handleSubmit, reset, } = useForm({
+    defaultValues: config
+  })
+  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
+    control, // control props comes from useForm (optional: if you are using FormContext)
+    name: "ads", // unique name for your Field Array
+    // keyName: "id", default to "id", you can change the key name
+  });
+
+  React.useEffect(() => {
+    reset(config)
+  }, [config])
+
+  const onSubmit = async (data?: {ads: { time: moment.Moment, id: string, day: string }[]}) => {
+    if (data) {
+      setPending(true)
+      try {
+        const requestData = data.ads.map(ad => ({
+          ...ad,
+          time: ad.time.format('HH:mm:ss')
+        }))
+        console.log(requestData)
+        const response = await api.bot.editBot({ config: { ads: requestData } }, botId)
+      } catch {
+        console.error('An error occured')
+      } finally {
+        setPending(false)
+      }
+    }
+  }
+
   return (
-    <Styled.AdBot>
-      <Styled.AdBotFormContent>
-        <Form.Item label='Bot name'>
-          <Controller 
-            as={Input}
-            name='name'
-            defaultValue=""
-            control={control}
-            rules={{required: true}}
-          />
-        </Form.Item>
-        <Form.Item label='Bot Token'>
-          <Controller 
-            as={Input}
-            name='token'
-            defaultValue=""
-            control={control}
-            rules={{required: true}}
-          />
-        </Form.Item>
-        {/* <Button type="primary" onClick={handleSubmit(onSubmit)} loading={isPending}>
-          Save
-        </Button> */}
-      </Styled.AdBotFormContent>
-    </Styled.AdBot>
+    <React.Fragment>
+      <Styled.AdBot>
+        <Styled.AdBotFormContent>
+          {fields.map((field,index) => {
+            return (
+              <AdInfo 
+                control={control}
+                index={index}
+                key={field.id}
+                field={field}
+              />
+            )
+          })}
+          <Button type="primary" onClick={handleSubmit(onSubmit)} loading={isPending}>
+            Save
+          </Button>
+          <Button type="primary" onClick={() => {
+            append({ message: "", day: "", time: "00:00:00"})
+          }}>
+            Add
+          </Button>
+        </Styled.AdBotFormContent>
+      </Styled.AdBot>
+    </React.Fragment>
   )
 }
 

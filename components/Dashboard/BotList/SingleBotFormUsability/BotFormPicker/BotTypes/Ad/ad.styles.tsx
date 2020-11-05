@@ -17,8 +17,10 @@ export const AdBotFormContent = styled.form.attrs({
   /* grid-auto-flow: column; */
   grid-row-gap: 20px;
   padding: 20px;
-  width: 600px;
-  height: 300px;
+  width: 800px;
+  min-height: 300px;
+  max-height: 80vh;
+  overflow: auto;
   grid-auto-rows: max-content;
   border: 1px solid var(--Grey);
   border-radius: 2px;
