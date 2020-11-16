@@ -7,7 +7,7 @@ import { api } from '../../../../../../../services/api'
 import { useRouter } from "next/router";
 import AdInfo from './AdInfo'
 import moment from 'moment'
-
+import { v4 as uuid } from 'uuid';
 interface AdBot {
   config: IUIResponseAdBotConfig
 }
@@ -30,14 +30,19 @@ const AdBot: React.FC<AdBot> = ({ config }) => {
   }, [config])
 
   const onSubmit = async (data?: {ads: { time: moment.Moment, id: string, day: string }[]}) => {
+    console.log(data)
     if (data) {
       setPending(true)
       try {
-        const requestData = data.ads.map(ad => ({
-          ...ad,
-          time: ad.time.format('HH:mm:ss')
-        }))
-        console.log(requestData)
+        const requestData = data.ads.map(ad => {
+          const id = config.ads.find(searchedAd => searchedAd.id === ad.id)
+          return {
+            ...ad,
+            time: ad.time.format('HH:mm:ss'),
+            id: id?.id || uuid()
+          }
+        })
+
         const response = await api.bot.editBot({ config: { ads: requestData } }, botId)
       } catch {
         console.error('An error occured')

@@ -13,7 +13,7 @@ interface AdInfo {
 const { Option } = Select
 
 const AdInfo: React.FC<AdInfo> = ({ control, index, field }) => {
-  console.log(field.time)
+
   return (
     <Styled.AdInfo>
       <Form.Item label='Message'>
@@ -68,6 +68,14 @@ const AdInfo: React.FC<AdInfo> = ({ control, index, field }) => {
           control={control}
         />
       </Form.Item>
+      <Styled.AdInfoInputId>
+        <Controller 
+          as={Input}
+          name={`ads[${index}].id`}
+          defaultValue={field.id}
+          control={control}
+        />
+      </Styled.AdInfoInputId>
     </Styled.AdInfo>
   )
 }

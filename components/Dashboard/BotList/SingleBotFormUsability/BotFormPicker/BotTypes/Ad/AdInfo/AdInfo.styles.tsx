@@ -9,3 +9,8 @@ export const AdInfo = styled.div.attrs({
   width:100%;
   height: 100px;
 `
+export const AdInfoInputId = styled.div.attrs({
+  className: 'AdInfoInputId'
+})`
+  display: none
+`
