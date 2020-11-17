@@ -30,16 +30,15 @@ const AdBot: React.FC<AdBot> = ({ config }) => {
   }, [config])
 
   const onSubmit = async (data?: {ads: { time: moment.Moment, id: string, day: string }[]}) => {
-    console.log(data)
     if (data) {
       setPending(true)
       try {
         const requestData = data.ads.map(ad => {
-          const id = config.ads.find(searchedAd => searchedAd.id === ad.id)
+          const id = config.ads.find(searchedAd => searchedAd.id === ad.id)?.id
           return {
             ...ad,
             time: ad.time.format('HH:mm:ss'),
-            id: id?.id || uuid()
+            id: id || uuid()
           }
         })
 
@@ -63,6 +62,7 @@ const AdBot: React.FC<AdBot> = ({ config }) => {
                 index={index}
                 key={field.id}
                 field={field}
+                remove={remove}
               />
             )
           })}

@@ -3,16 +3,18 @@ import * as Styled from './AdInfo.styles'
 import { Form, Input, Button, Switch, TimePicker, Select } from 'antd';
 import { Controller, useForm, Control, ArrayField } from 'react-hook-form'
 import moment from 'moment'
+import { DeleteFilled } from '@ant-design/icons';
 
 interface AdInfo {
   control: Control<Record<string, any>>
   index: number
   field: Partial<ArrayField<Record<string, any>, "id">>
+  remove: (index?: number | number[]) => void
 }
 
 const { Option } = Select
 
-const AdInfo: React.FC<AdInfo> = ({ control, index, field }) => {
+const AdInfo: React.FC<AdInfo> = ({ control, index, field, remove }) => {
 
   return (
     <Styled.AdInfo>
@@ -76,6 +78,12 @@ const AdInfo: React.FC<AdInfo> = ({ control, index, field }) => {
           control={control}
         />
       </Styled.AdInfoInputId>
+      <DeleteFilled onClick={() => {
+        console.log(field.id)
+        if (field.id) {
+          remove(index)
+        }
+      }} />
     </Styled.AdInfo>
   )
 }
