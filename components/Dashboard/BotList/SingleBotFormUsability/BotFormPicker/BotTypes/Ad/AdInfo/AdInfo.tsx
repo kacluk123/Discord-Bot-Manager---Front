@@ -78,12 +78,14 @@ const AdInfo: React.FC<AdInfo> = ({ control, index, field, remove }) => {
           control={control}
         />
       </Styled.AdInfoInputId>
-      <DeleteFilled onClick={() => {
-        console.log(field.id)
-        if (field.id) {
-          remove(index)
-        }
-      }} />
+      <Styled.DeleteButtonContainer>
+        <DeleteFilled 
+          style={{ fontSize: '25px', color: 'var(--Grey)' }}
+          onClick={() => {
+            remove(index)
+          }} 
+        />
+      </Styled.DeleteButtonContainer>
     </Styled.AdInfo>
   )
 }

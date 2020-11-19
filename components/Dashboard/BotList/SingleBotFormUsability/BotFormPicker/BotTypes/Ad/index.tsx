@@ -6,13 +6,17 @@ import { Controller, useForm, useFieldArray } from 'react-hook-form'
 import { api } from '../../../../../../../services/api'
 import { useRouter } from "next/router";
 import AdInfo from './AdInfo'
+import { PlusSquareOutlined } from '@ant-design/icons'
+import IconWithHover from '../../../../../../Common/IconWithHover'
 import moment from 'moment'
 import { v4 as uuid } from 'uuid';
+import useBots from '../../../../../../../remote/bots'
 interface AdBot {
   config: IUIResponseAdBotConfig
 }
 
 const AdBot: React.FC<AdBot> = ({ config }) => {
+  const { mutate, data, replaceData } = useBots()
   const [isPending, setPending] = React.useState<boolean>(false)
   const router = useRouter()
   const { botId } = router.query
@@ -42,7 +46,10 @@ const AdBot: React.FC<AdBot> = ({ config }) => {
           }
         })
 
-        const response = await api.bot.editBot({ config: { ads: requestData } }, botId)
+        if (typeof botId === 'string') {
+          const response = await api.bot.editBot({ config: { ads: requestData } }, botId)
+          replaceData(response)
+        }
       } catch {
         console.error('An error occured')
       } finally {
@@ -55,6 +62,16 @@ const AdBot: React.FC<AdBot> = ({ config }) => {
     <React.Fragment>
       <Styled.AdBot>
         <Styled.AdBotFormContent>
+          <Styled.DisableButtonContainer>
+            <IconWithHover>
+              <PlusSquareOutlined 
+                style={{ fontSize: '40px', color: 'var(--Grey)' }}
+                onClick={() => {
+                  append({ message: "", day: "", time: "00:00:00"})
+                }}
+              />
+            </IconWithHover>
+          </Styled.DisableButtonContainer>
           {fields.map((field,index) => {
             return (
               <AdInfo 
@@ -68,11 +85,6 @@ const AdBot: React.FC<AdBot> = ({ config }) => {
           })}
           <Button type="primary" onClick={handleSubmit(onSubmit)} loading={isPending}>
             Save
-          </Button>
-          <Button type="primary" onClick={() => {
-            append({ message: "", day: "", time: "00:00:00"})
-          }}>
-            Add
           </Button>
         </Styled.AdBotFormContent>
       </Styled.AdBot>

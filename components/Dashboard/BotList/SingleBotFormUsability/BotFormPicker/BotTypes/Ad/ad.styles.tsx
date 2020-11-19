@@ -6,6 +6,7 @@ export const AdBot = styled.div.attrs({
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `
@@ -24,4 +25,11 @@ export const AdBotFormContent = styled.form.attrs({
   grid-auto-rows: max-content;
   border: 1px solid var(--Grey);
   border-radius: 2px;
+`
+
+export const DisableButtonContainer = styled.div.attrs({
+  className: 'DisableButtonContainer'
+})`
+  width: 35px;
+  justify-self: flex-end;
 `
