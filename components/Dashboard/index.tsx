@@ -21,22 +21,6 @@ const Dashboard: React.FC<IDashboard> = () => {
     mutate 
   } = useSWR('/api/user')
   
-  // const authorizeUser = async () => {
-  //   const userData = await api.auth.getAuthData({ code })
-  //   mutate(new UserModel(userData))
-  // }
-
-  // React.useEffect(() => {
-  //   if (!data) {
-  //     authorizeUser()
-  //   }
-  // }, [])
-
-  // const x = async () => {
-  //   const data = await api.user.authorize()
-  //   console.log(data)
-  // }
-
   return (
     <MainLayout>
       <div>

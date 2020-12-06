@@ -1,10 +1,15 @@
 import '../styles/globals.css'
 import useSWR, { SWRConfig } from 'swr'
 import { GlobalStyle } from '../styles/styledComponentsGlobal'
+import cogoToast from 'cogo-toast';
 
 function MyApp({ Component, pageProps }) {
   return (
-    <SWRConfig>
+    <SWRConfig value={{
+      onError: (error, key) => {
+        cogoToast.error(error.message)
+      },
+    }}>
       <Component {...pageProps} />
       <GlobalStyle />
     </SWRConfig>

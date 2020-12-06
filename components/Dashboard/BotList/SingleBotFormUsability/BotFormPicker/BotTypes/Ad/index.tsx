@@ -11,6 +11,7 @@ import IconWithHover from '../../../../../../Common/IconWithHover'
 import moment from 'moment'
 import { v4 as uuid } from 'uuid';
 import useBots from '../../../../../../../remote/bots'
+import cogoToast from 'cogo-toast';
 interface AdBot {
   config: IUIResponseAdBotConfig
 }
@@ -20,7 +21,7 @@ const AdBot: React.FC<AdBot> = ({ config }) => {
   const [isPending, setPending] = React.useState<boolean>(false)
   const router = useRouter()
   const { botId } = router.query
-  const { control, handleSubmit, reset, } = useForm({
+  const { control, handleSubmit, reset, errors} = useForm({
     defaultValues: config
   })
   const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
@@ -42,21 +43,24 @@ const AdBot: React.FC<AdBot> = ({ config }) => {
           return {
             ...ad,
             time: ad.time.format('HH:mm:ss'),
-            id: id || uuid()
+            id: id || uuid(),
           }
         })
 
         if (typeof botId === 'string') {
           const response = await api.bot.editBot({ config: { ads: requestData } }, botId)
           replaceData(response)
+          cogoToast.success('Bot data saved succesfully!')
         }
-      } catch {
-        console.error('An error occured')
+      } catch (err) {
+        cogoToast.error(err.message)
       } finally {
         setPending(false)
       }
     }
   }
+
+  const isSubmitButtonDisabled = Object.values(errors).length > 0
 
   return (
     <React.Fragment>
@@ -83,7 +87,7 @@ const AdBot: React.FC<AdBot> = ({ config }) => {
               />
             )
           })}
-          <Button type="primary" onClick={handleSubmit(onSubmit)} loading={isPending}>
+          <Button type="primary" disabled={isSubmitButtonDisabled} onClick={handleSubmit(onSubmit)} loading={isPending}>
             Save
           </Button>
         </Styled.AdBotFormContent>

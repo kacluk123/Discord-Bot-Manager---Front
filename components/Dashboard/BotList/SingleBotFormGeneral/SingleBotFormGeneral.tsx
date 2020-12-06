@@ -6,7 +6,7 @@ import { Form, Input, Button, Switch } from 'antd';
 import { Controller, useForm } from 'react-hook-form'
 import { api } from '../../../../services/api'
 import useBots from '../../../../remote/bots'
-
+import cogoToast from 'cogo-toast';
 interface SingleBotFormGeneral {
   bot: IUIResponseBot
 }
@@ -29,8 +29,9 @@ const SingleBotFormGeneral: React.FC<SingleBotFormGeneral> = ({ bot }) => {
     try {
       const response = await api.bot.editBot(data, bot.id)
       replaceBot(response)
-    } catch {
-      console.error('An error occured')
+      cogoToast.success('Bot data saved sucesfully!')
+    } catch (err) {
+      cogoToast.error(err.message)
     } finally {
       setPending(false)
     }

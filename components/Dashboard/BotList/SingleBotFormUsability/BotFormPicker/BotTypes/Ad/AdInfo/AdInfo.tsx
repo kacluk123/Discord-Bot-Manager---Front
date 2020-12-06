@@ -24,12 +24,18 @@ const AdInfo: React.FC<AdInfo> = ({ control, index, field, remove }) => {
           defaultValue={field.message}
           name={`ads[${index}].message`}
           control={control}
+          rules={{
+            required: true
+          }}
         />
       </Form.Item>
       <Form.Item label='Day'>
         <Controller 
           name={`ads[${index}].day`}
           defaultValue={field.day}
+          rules={{
+            required: true
+          }}
           control={control}
           render={({ onChange, onBlur, value, name }) => (
             <Select
@@ -65,6 +71,9 @@ const AdInfo: React.FC<AdInfo> = ({ control, index, field, remove }) => {
       <Form.Item label='Time'>
         <Controller 
           as={TimePicker}
+          rules={{
+            required: true
+          }}
           name={`ads[${index}].time`}
           defaultValue={moment(field.time, 'HH:mm:ss')}
           control={control}
@@ -73,6 +82,9 @@ const AdInfo: React.FC<AdInfo> = ({ control, index, field, remove }) => {
       <Styled.AdInfoInputId>
         <Controller 
           as={Input}
+          rules={{
+            required: true
+          }}
           name={`ads[${index}].id`}
           defaultValue={field.id}
           control={control}

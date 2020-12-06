@@ -28,6 +28,16 @@ const useBots = () => {
     return data.bots.find(bot => bot.id === botId)
   }
 
+  const addBot = (newBot: IUIResponseBot) => {
+    mutate({
+      ...data,
+      bots: [
+        newBot, 
+        ...data.bots
+      ]
+    })
+  }
+
   const replaceData = (newBot: IUIResponseBot) => {
     const replacedList = data.bots.filter((bot) => bot.id !== newBot.id)
     
@@ -43,6 +53,7 @@ const useBots = () => {
   return {
     data, 
     error, 
+    addBot,
     mutate, 
     replaceBot,
     replaceData,

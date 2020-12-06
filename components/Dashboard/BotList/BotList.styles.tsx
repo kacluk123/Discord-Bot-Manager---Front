@@ -11,6 +11,7 @@ export const BotList = styled.div.attrs({
   height: 90vh;
   width: 300px;
   grid-row-gap: 5px;
+  grid-auto-rows: max-content;
   overflow: auto;
   padding: 0 10px;
 `
