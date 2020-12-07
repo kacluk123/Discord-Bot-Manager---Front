@@ -17,7 +17,7 @@ const BotFormPageLayout: React.FC = ({ children }) => {
       return 'usability'
     }
   }
-  console.log(botId)
+
   return (
     <Styled.BotFormPageLayout>
       <Menu mode="horizontal" selectedKeys={[getCurrentOpenedSettingLabel()]}>

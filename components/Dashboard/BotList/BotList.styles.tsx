@@ -16,12 +16,6 @@ export const BotList = styled.div.attrs({
   padding: 0 10px;
 `
 
-export const BotMeta = styled(Meta).attrs({
-  className: 'BotMeta'
-})<{ isBotPicked: boolean }>`
-  
-`
-
 export const BotCard = styled(Card).attrs({
   className: 'BotCard'
 })``
@@ -29,7 +23,7 @@ export const BotCard = styled(Card).attrs({
 export const BotCardContainer = styled.div.attrs({
   className: 'BotCardContainer'
 })<{ isBotPicked: boolean }>`
-  ${props => props.isBotPicked && css`
+  ${(props: { isBotPicked: boolean }) => props.isBotPicked && css`
     .BotCard {
       border: 1px solid var(--Blue);
       .ant-card-meta-avatar {

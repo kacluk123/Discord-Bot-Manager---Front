@@ -4,7 +4,7 @@ import useSWR from 'swr'
 
 const MainLayout: React.FC = ({ children }) => {
   return (
-    <Styled.Main>
+    <Styled.Main> 
       <Navbar />
       {children}
     </Styled.Main>

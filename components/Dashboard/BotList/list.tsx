@@ -17,7 +17,7 @@ interface IBotsList {
 const List: React.FC<IBotsList> = ({ bots, currentPickedBot }) => {
   return (
     <Styled.BotList>
-      {bots.map(bot => <SingleBotCard bot={bot} currentPickedBot={currentPickedBot} />)}
+      {bots.map(bot => <SingleBotCard bot={bot} key={bot.id} currentPickedBot={currentPickedBot} />)}
     </Styled.BotList>
   )
 }
@@ -32,8 +32,8 @@ const SingleBotCard: React.FC<ISingleBotCard> = ({ bot, currentPickedBot }) => {
 
   return (
     <Link href={`/dashboard/bot-list/${bot.id}/general`}>
-      <Styled.BotCardContainer isBotPicked={currentPickedBot === bot.id}>
-        <Styled.BotCard style={{ width: '100%' }} isBotPicked={currentPickedBot === bot.id} hoverable>
+      <Styled.BotCardContainer isBotPicked={currentPickedBot === bot.id} data-testid="bot">
+        <Styled.BotCard style={{ width: '100%' }} hoverable>
           <Meta 
             title={bot.name}
             description={bot.type}

@@ -60,11 +60,16 @@ const SingleBotFormGeneral: React.FC<SingleBotFormGeneral> = ({ bot }) => {
             />
           </Form.Item>
           <Controller 
-            as={Switch}
+            render={({ value, onChange }) => (
+              <Switch 
+                checked={value}
+                onChange={onChange}
+                defaultChecked={bot.isActive}
+              />
+            )}
             name='isActive'
-            defaultChecked={bot.isActive}
             control={control}
-            // rules={{required: true}}
+            rules={{required: true}}
           />
           <Button type="primary" onClick={handleSubmit(onSubmit)} loading={isPending}>
             Save
