@@ -7,8 +7,9 @@ function MyApp({ Component, pageProps }) {
   return (
     <SWRConfig value={{
       onError: (error, key) => {
-        cogoToast.error(error.message)
+        cogoToast.error(error.response.data.message)
       },
+      shouldRetryOnError: false,
     }}>
       <Component {...pageProps} />
       <GlobalStyle />
