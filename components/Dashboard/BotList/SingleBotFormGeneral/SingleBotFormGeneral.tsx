@@ -45,6 +45,7 @@ const SingleBotFormGeneral: React.FC<SingleBotFormGeneral> = ({ bot }) => {
             <Controller 
               as={Input}
               name='name'
+              data-testid='generalName'
               defaultValue=""
               control={control}
               rules={{required: true}}
@@ -54,6 +55,7 @@ const SingleBotFormGeneral: React.FC<SingleBotFormGeneral> = ({ bot }) => {
             <Controller 
               as={Input}
               name='token'
+              data-testid='generalToken'
               defaultValue=""
               control={control}
               rules={{required: true}}
@@ -63,6 +65,7 @@ const SingleBotFormGeneral: React.FC<SingleBotFormGeneral> = ({ bot }) => {
             render={({ value, onChange }) => (
               <Switch 
                 checked={value}
+                data-testid='generalIsActive'
                 onChange={onChange}
                 defaultChecked={bot.isActive}
               />
