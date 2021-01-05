@@ -2,7 +2,7 @@ import React from 'react'
 import { render, fireEvent, waitFor, screen, act } from '@testing-library/react'
 import { rest, setupWorker } from 'msw'
 import SingleBotFormGeneral from './SingleBotFormGeneral'
-import { IUIResponseBot } from '../../../../services/api/bots/bots.types'
+
 import { setupServer } from 'msw/node'
 import { SWRConfig, cache } from 'swr'
 import cogoToast from 'cogo-toast';
@@ -11,6 +11,8 @@ import '@testing-library/jest-dom/extend-expect'
 import { botsResponse } from '../../../../testUtils/payloads/botsList'
 import { withTestRouter } from '../../../../testUtils/withTestRouter'
 import { api } from '../../../../services/api'
+import useBots from '../../../../remote/bots'
+import useSWR from 'swr'
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
@@ -35,13 +37,49 @@ const newBotData = {
   userId: "testUserId",
   id: 2,
   isActive: true,
+  "config":{
+    "ads":[
+       {
+          "message":"dsadsa",
+          "day":"7",
+          "time":"02:02:03",
+          "id":"299f0428-ebcc-45d3-bd4d-743066ace196"
+       },
+       {
+          "message":"HELLO",
+          "day":"5",
+          "time":"15:34:20",
+          "id":"5eb2ac5d-c7b7-41f2-89ec-0c16d86b79ea"
+       }
+    ]
+ }
+}
+
+const WrapperComponent = () => {
+  const { 
+    data, 
+    error, 
+    mutate, 
+  } = useSWR('/api/bots/get-bots', api.bot.getAllBots, {
+    revalidateOnFocus: false,
+    revalidateOnMount:true,
+    revalidateOnReconnect: false,
+    refreshWhenOffline: false,
+    refreshWhenHidden: false,
+    refreshInterval: 0,
+    initialData: botsResponse
+  })
+  
+  return (
+    <SingleBotFormGeneral bot={data.bots[0]} />
+  )
 }
 
 const server = setupServer(
   rest.get('http://localhost:3000/bots/get-bots', (req, res, ctx) => {
     return res(ctx.json(botsResponse))
   }),
-  rest.post('http://localhost:3000/bots/bot/1', (req, res, ctx) => {
+  rest.patch('http://localhost:3000/bots/bot/1', (req, res, ctx) => {
     return res(ctx.json(newBotData))
   }),
   rest.get('http://localhost:3000/user/authorize', (req, res, ctx) => {
@@ -62,7 +100,16 @@ const successNotificationText = 'Bot data saved sucesfully!'
 
 test('Should FormGeneralWork', async () => {
   const general = withTestRouter(
-    <SingleBotFormGeneral bot={singleBot} />
+    <SWRConfig value={{
+      onError: (error, key) => {
+        cogoToast.error(error.response.data.message)
+      },
+      dedupingInterval: 0,
+      shouldRetryOnError: false,
+    }}>
+      <WrapperComponent />
+
+    </SWRConfig>
   )
   
   render(general)
@@ -76,14 +123,13 @@ test('Should FormGeneralWork', async () => {
   expect(name.value).toBe(singleBot.name)
   expect(token.value).toBe(singleBot.token)
   expect(isActiveValue).toBe(singleBot.isActive)
-  // act(() => {
-  //   fireEvent.click(isActive)
-  //   fireEvent.click(submitButton)
-  // })
-  fireEvent.click(isActive)
+  act(() => {
     fireEvent.click(submitButton)
+  })
+  
 
   await waitFor(() => screen.getByRole('status'))
-  const notification = screen.getAllByRole('status')[0]
+  const notification = screen.getByRole('status')
+
   expect(notification).toHaveTextContent(successNotificationText)
 })

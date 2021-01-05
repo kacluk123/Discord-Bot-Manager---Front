@@ -12,7 +12,7 @@ interface SingleBotFormGeneral {
 }
 
 const SingleBotFormGeneral: React.FC<SingleBotFormGeneral> = ({ bot }) => {
-  const { replaceBot } = useBots()
+  const { replaceBot, data } = useBots()
   const [isPending, setPending] = React.useState<boolean>(false)
   const { control, handleSubmit, reset } = useForm({ defaultValues: {
     name: bot.name,
