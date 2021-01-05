@@ -74,7 +74,12 @@ const SingleBotFormGeneral: React.FC<SingleBotFormGeneral> = ({ bot }) => {
             control={control}
             rules={{required: true}}
           />
-          <Button type="primary" onClick={handleSubmit(onSubmit)} loading={isPending}>
+          <Button 
+            type="primary" 
+            onClick={handleSubmit(onSubmit)} 
+            loading={isPending}
+            data-testid='saveGeneralBot'
+          >
             Save
           </Button>
         </Styled.CreateBotFormContent>
