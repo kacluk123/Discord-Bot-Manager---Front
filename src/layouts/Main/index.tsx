@@ -1,4 +1,4 @@
-import Navbar from '../../_includes/Navbar'
+import Navbar from '../../public/_includes/Navbar'
 import * as Styled from './main.styles'
 import useSWR from 'swr'
 

@@ -9,6 +9,7 @@ import cogoToast from 'cogo-toast';
 // import { withTestRouter } from '../../../testUtils/withTestRouter'
 import '@testing-library/jest-dom/extend-expect'
 import { botsResponse } from '../../../../testUtils/payloads/botsList'
+import { userResponse } from '../../../../testUtils/payloads/user'
 import { withTestRouter } from '../../../../testUtils/withTestRouter'
 import { api } from '../../../../services/api'
 import useBots from '../../../../remote/bots'
@@ -55,26 +56,6 @@ const newBotData = {
  }
 }
 
-const WrapperComponent = () => {
-  const { 
-    data, 
-    error, 
-    mutate, 
-  } = useSWR('/api/bots/get-bots', api.bot.getAllBots, {
-    revalidateOnFocus: false,
-    revalidateOnMount:true,
-    revalidateOnReconnect: false,
-    refreshWhenOffline: false,
-    refreshWhenHidden: false,
-    refreshInterval: 0,
-    initialData: botsResponse
-  })
-  
-  return (
-    <SingleBotFormGeneral bot={data.bots[0]} />
-  )
-}
-
 const server = setupServer(
   rest.get('http://localhost:3000/bots/get-bots', (req, res, ctx) => {
     return res(ctx.json(botsResponse))
@@ -107,15 +88,15 @@ test('Should FormGeneralWork', async () => {
       dedupingInterval: 0,
       shouldRetryOnError: false,
     }}>
-      <WrapperComponent />
+      <SingleBotFormGeneral bot={singleBot} />
 
     </SWRConfig>
   )
   
   render(general)
 
-  const name = screen.getByTestId('generalName')
-  const token = screen.getByTestId('generalToken')
+  const name = screen.getByTestId('generalName') as HTMLInputElement
+  const token = screen.getByTestId('generalToken') as HTMLInputElement
   const isActive = screen.getByTestId('generalIsActive')
   const submitButton = screen.getByTestId('saveGeneralBot')
   const isActiveValue = isActive[Object.keys(isActive)[0]].pendingProps['aria-checked']

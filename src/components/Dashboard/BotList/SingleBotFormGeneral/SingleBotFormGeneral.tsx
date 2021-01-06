@@ -88,4 +88,4 @@ const SingleBotFormGeneral: React.FC<SingleBotFormGeneral> = ({ bot }) => {
   )
 }
 
-export default React.memo(SingleBotFormGeneral)
+export default SingleBotFormGeneral

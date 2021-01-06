@@ -2,7 +2,7 @@ import { Avatar } from 'antd';
 import * as React from 'react'
 import * as Styled from './navbar.styles'
 import useSWR from 'swr'
-import useUser from '../../remote/user'
+import useUser from '../../../remote/user'
 import Link from 'next/link'
 import { UserAddOutlined } from '@ant-design/icons'
 import { useRouter } from "next/router";

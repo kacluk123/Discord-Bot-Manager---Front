@@ -64,7 +64,7 @@ const AdBot: React.FC<AdBot> = ({ config }) => {
 
   return (
     <React.Fragment>
-      <Styled.AdBot>
+      <Styled.AdBot data-testid='adBot'>
         <Styled.AdBotFormContent>
           <Styled.DisableButtonContainer>
             <IconWithHover>

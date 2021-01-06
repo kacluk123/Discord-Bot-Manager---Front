@@ -17,11 +17,13 @@ const useBots = () => {
   })
   
   const replaceBot = (newBot: IUIResponseBot) => {
-    const newBotList = data.bots.map(bot => bot.id === newBot.id ? newBot : bot)
-    mutate({
-      ...data,
-      bots: newBotList
-    })
+    if (data?.bots) {
+      const newBotList = data.bots.map(bot => bot.id === newBot.id ? newBot : bot)
+      mutate({
+        ...data,
+        bots: newBotList
+      })
+    }
   }
 
   const getCurrentPickedBot = (botId: string) => {

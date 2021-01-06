@@ -20,7 +20,7 @@ const BotsListContainer: React.FC = () => {
     if (data) {
       router.push(`/dashboard/bot-list/${data.bots[0].id}/general`)
     }
-  }, [])
+  }, [data])
   
   return error ? (
     <MainLayout>
