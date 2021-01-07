@@ -69,6 +69,7 @@ const AdBot: React.FC<AdBot> = ({ config }) => {
           <Styled.DisableButtonContainer>
             <IconWithHover>
               <PlusSquareOutlined 
+                data-testid='addAdInfo'
                 style={{ fontSize: '40px', color: 'var(--Grey)' }}
                 onClick={() => {
                   append({ message: "", day: "", time: "00:00:00"})
@@ -87,7 +88,7 @@ const AdBot: React.FC<AdBot> = ({ config }) => {
               />
             )
           })}
-          <Button type="primary" disabled={isSubmitButtonDisabled} onClick={handleSubmit(onSubmit)} loading={isPending}>
+          <Button data-testid='saveAdFormButton' type="primary" disabled={isSubmitButtonDisabled} onClick={handleSubmit(onSubmit)} loading={isPending}>
             Save
           </Button>
         </Styled.AdBotFormContent>

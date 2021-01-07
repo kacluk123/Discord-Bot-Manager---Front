@@ -17,11 +17,12 @@ const { Option } = Select
 const AdInfo: React.FC<AdInfo> = ({ control, index, field, remove }) => {
 
   return (
-    <Styled.AdInfo>
+    <Styled.AdInfo data-testid='adInfo'>
       <Form.Item label='Message'>
         <Controller 
           as={Input}
           defaultValue={field.message}
+          data-testid='adMessage'
           name={`ads[${index}].message`}
           control={control}
           rules={{
@@ -42,8 +43,9 @@ const AdInfo: React.FC<AdInfo> = ({ control, index, field, remove }) => {
               onBlur={onBlur}
               onChange={onChange}
               value={value}
+              data-testid='adDay'
             >
-              <Option value='1'>
+              <Option value='1' data-testid='adMonday'>
                 Monday
               </Option>
               <Option value='2'>

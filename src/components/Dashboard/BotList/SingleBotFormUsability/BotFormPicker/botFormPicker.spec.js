@@ -10,6 +10,8 @@ import { botsResponse } from '../../../../../testUtils/payloads/botsList'
 import { userResponse } from '../../../../../testUtils/payloads/user'
 import { withTestRouter } from '../../../../../testUtils/withTestRouter'
 import BotFormPicker from './botFormPicker'
+import { BotPageContainer } from '../../Common/bots.styles'
+import MainLayout from '../../../../../layouts/Main'
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
@@ -28,8 +30,12 @@ Object.defineProperty(window, 'matchMedia', {
 const singleBot = botsResponse.bots[0]
 
 test('Should display proper form', async () => {
-  withTestRouter(<BotFormPicker bot={singleBot} />)
-  await waitFor(() => screen.getByTestId('adBot'))
+  const botPicker = withTestRouter(
+    <BotFormPicker bot={singleBot} />
+  )
+
+  render(botPicker)
+
   const adBot = screen.getByTestId('adBot')
   expect(adBot).toBeTruthy()
 })

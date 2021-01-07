@@ -9,7 +9,7 @@ interface BotFormPicker {
 
 const BotFormPicker: React.FC<BotFormPicker> = ({ bot }) => {
   let botComponent: React.ReactElement
-  
+
   switch (bot.type) {
     case 'ad': {
       botComponent = <Ad config={bot.config} />
