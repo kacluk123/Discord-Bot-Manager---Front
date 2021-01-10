@@ -104,11 +104,11 @@ test('Should FormGeneralWork', async () => {
   expect(name.value).toBe(singleBot.name)
   expect(token.value).toBe(singleBot.token)
   expect(isActiveValue).toBe(singleBot.isActive)
+  
   act(() => {
     fireEvent.click(submitButton)
   })
   
-
   await waitFor(() => screen.getByRole('status'))
   const notification = screen.getByRole('status')
 
