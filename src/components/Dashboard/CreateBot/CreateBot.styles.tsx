@@ -12,8 +12,9 @@ export const CreateBot = styled.div.attrs({
 export const CreateBotTypes = styled.div.attrs({
   className: 'CreateBotTypes'
 })`
-  display: grid;
-  grid-auto-flow: column;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
 
 `
 

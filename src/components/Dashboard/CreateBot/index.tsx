@@ -1,6 +1,6 @@
 import * as React from 'react'
 import * as Styled from './CreateBot.styles'
-import { MoneyCollectOutlined } from '@ant-design/icons';
+import { MoneyCollectOutlined, StepForwardOutlined } from '@ant-design/icons';
 import MainLayout from '../../../layouts/Main'
 import Link from 'next/link'
 import { useRouter } from "next/router";
@@ -16,6 +16,13 @@ const CreateBot: React.FC = () => {
             botName='ad'
           >
             <MoneyCollectOutlined color='#BFBFBF' style={{ fontSize: '100px', color: '#BFBFBF' }} />
+          </SingleBotCard>
+          <SingleBotCard
+            headerText='Music bot'
+            description="Create bot to play music on your channel!"
+            botName='music'
+          >
+            <StepForwardOutlined color='#BFBFBF' style={{ fontSize: '100px', color: '#BFBFBF' }} />
           </SingleBotCard>
         </Styled.CreateBotTypes>
       </Styled.CreateBot>

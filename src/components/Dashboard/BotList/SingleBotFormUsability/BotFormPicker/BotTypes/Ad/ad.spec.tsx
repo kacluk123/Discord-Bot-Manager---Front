@@ -7,6 +7,7 @@ import { setupServer } from 'msw/node'
 import { userResponse } from '../../../../../../../testUtils/payloads/user'
 import { SWRConfig, cache } from 'swr'
 import cogoToast from 'cogo-toast';
+import BotFormPageLayout from '../../../../Common/BotFormPageLayout'
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
@@ -27,7 +28,7 @@ const newBotData = {
   name: 'new name',
   type: "ad",
   userId: "testUserId",
-  id: 2,
+  id: 1,
   isActive: true,
   "config":{
     "ads":[
@@ -76,7 +77,7 @@ const adBot = withTestRouter(
     dedupingInterval: 0,
     shouldRetryOnError: false,
   }}>
-    <AdBot config={botsResponse.bots[0].config} />
+      <AdBot config={botsResponse.bots[0].config} />
   </SWRConfig>
 )
 
@@ -98,7 +99,7 @@ describe('Should ad bot form work', () => {
   
     expect(screen.getAllByTestId('adInfo').length).toBe(3)
   })
-  it('Should adding ad work, and form sending', async () => {
+  it('Should adding ad work and form sending', async () => {
     render(adBot)
     const addAddButton = screen.getByTestId('addAdInfo')
     
@@ -117,9 +118,11 @@ describe('Should ad bot form work', () => {
     const adMessage = screen.getAllByTestId('adMessage')[2]
     const adDay = screen.getAllByTestId('adDay')[2]
     
-    fireEvent.change(adMessage, {target: {
-      value: 'Test123'
-    }})
+    fireEvent.change(adMessage, {
+      target: {
+        value: 'Test123'
+      }
+    })
 
     fireEvent.mouseDown(adDay.firstElementChild)
 
@@ -130,12 +133,28 @@ describe('Should ad bot form work', () => {
     })
 
     await waitFor(() => expect(screen.getByTestId('saveAdFormButton')).not.toBeDisabled())
+ 
+    const button = screen.getByTestId('saveAdFormButton')
+
+    // act(() => {
+    //   fireEvent.click(button)
+    // })
+
+    // await waitFor(() => screen.getByRole('status'))
+
+    // const notification = screen.getByRole('status')
     
+    // expect(notification).toHaveTextContent(successNotificationText)
+  })
+  it('asdads', async () => {
+    render(adBot)
+    const button = screen.getByTestId('saveAdFormButton')
     act(() => {
-      fireEvent.click(screen.getByTestId('saveAdFormButton'))
+      fireEvent.click(button)
     })
+
     await waitFor(() => screen.getByRole('status'))
+
     const notification = screen.getByRole('status')
-    expect(notification).toHaveTextContent(successNotificationText)
   })
 })
