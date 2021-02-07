@@ -1,6 +1,7 @@
 import * as React from 'react'
-import { botTypes, IUIResponseAdBotConfig, IUIResponseBot } from '../../../../../services/api/bots/bots.types'
+import { botTypes, IUIResponseAdBotConfig, IUIResponseBot, IUIResponseMusicBotConfig } from '../../../../../services/api/bots/bots.types'
 import Ad from './BotTypes/Ad'
+import Music from './BotTypes/Music'
 import BotFormPageLayout from '../../Common/BotFormPageLayout'
 
 interface BotFormPicker {
@@ -12,7 +13,13 @@ const BotFormPicker: React.FC<BotFormPicker> = ({ bot }) => {
 
   switch (bot.type) {
     case 'ad': {
-      botComponent = <Ad config={bot.config} />
+      const config = bot.config as IUIResponseAdBotConfig
+      botComponent = <Ad config={config} />
+      break;
+    }
+    case 'music': {
+      const config = bot.config as IUIResponseMusicBotConfig
+      botComponent = <Music config={config} />
       break;
     }
   }

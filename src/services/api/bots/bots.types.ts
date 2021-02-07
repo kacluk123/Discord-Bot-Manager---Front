@@ -5,12 +5,12 @@ export interface IServerRequestBot {
   type?: botTypes
   isActive?: boolean;
   token?: string;
-  config?: BotConfigs;
+  config?: BotConfigsRequest;
 }
 
-export interface IServerResponseBot extends IServerRequestBot {
+export interface IServerResponseBot extends Omit<IServerRequestBot, 'config'> {
   id: number
-  config?: IServerResponseAdBotConfig
+  config?: BotConfigsServerResponse
 }
 
 export interface IUIResponseBot {
@@ -19,7 +19,7 @@ export interface IUIResponseBot {
   type: botTypes
   isActive: boolean
   token: string
-  config: IUIResponseAdBotConfig 
+  config: BotConfigsUIResponse 
 }
 
 export interface IUIResponseBots {
@@ -29,12 +29,6 @@ export interface IUIResponseBots {
 export interface IServerResponseBots {
   bots: IServerResponseBot[]
 }
-
-export interface IServerResponseAdBotConfig {
-  id: number
-  ads: ServerResponseBotAdConfigAds[]
-}
-
 export interface ServerResponseBotAdConfigAds {
   day: string
   id: string
@@ -42,6 +36,11 @@ export interface ServerResponseBotAdConfigAds {
 }
 
 export interface IUIResponseAdBotConfig {
+  ads: ServerResponseBotAdConfigAds[]
+}
+
+export interface IServerResponseAdBotConfig {
+  id: number
   ads: ServerResponseBotAdConfigAds[]
 }
 
@@ -55,4 +54,15 @@ export interface ServerRequestBotAdConfigAds {
   time: string
 }
 
-export type BotConfigs = ServerRequestBotAdConfig
+export interface IServerResponseMusicBotConfig {
+  playlist: string[]
+}
+export interface IUIResponseMusicBotConfig {
+  playList: string[]
+}
+
+
+
+export type BotConfigsRequest = ServerRequestBotAdConfig
+export type BotConfigsUIResponse = IUIResponseMusicBotConfig | IUIResponseAdBotConfig
+export type BotConfigsServerResponse = IServerResponseMusicBotConfig | IServerResponseAdBotConfig

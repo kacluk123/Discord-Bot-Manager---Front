@@ -1,9 +1,9 @@
 import * as React from 'react'
 import MainLayout from '../../../layouts/Main'
-import { IServerResponseBot, IUIResponseBot } from '../../../services/api/bots/bots.types'
+import { botTypes, IServerResponseBot, IUIResponseBot } from '../../../services/api/bots/bots.types'
 import * as Styled from'./BotList.styles'
 import { Skeleton, Switch, Card, Avatar } from 'antd';
-import { MoneyCollectOutlined } from '@ant-design/icons';
+import { MoneyCollectOutlined, StepForwardOutlined } from '@ant-design/icons';
 import { useRouter } from "next/router";
 import Link from 'next/link'
 
@@ -27,9 +27,16 @@ interface ISingleBotCard {
   currentPickedBot: string
 }
 
+const getBotIcon: {[k in botTypes]: React.ReactNode} = {
+  'ad': <MoneyCollectOutlined color='#BFBFBF' style={{ fontSize: '35px', color: '#BFBFBF' }} />,
+  'music': <StepForwardOutlined color='#BFBFBF' style={{ fontSize: '35px', color: '#BFBFBF' }} />
+}
+
+
 const SingleBotCard: React.FC<ISingleBotCard> = ({ bot, currentPickedBot }) => {
   const router = useRouter()
-
+  const BotIcon = getBotIcon[bot.type]
+  
   return (
     <Link href={`/dashboard/bot-list/${bot.id}/general`}>
       <Styled.BotCardContainer isBotPicked={currentPickedBot === bot.id} data-testid="bot">
@@ -37,7 +44,7 @@ const SingleBotCard: React.FC<ISingleBotCard> = ({ bot, currentPickedBot }) => {
           <Meta 
             title={bot.name}
             description={bot.type}
-            avatar={<MoneyCollectOutlined color='#BFBFBF' style={{ fontSize: '35px', color: '#BFBFBF' }} />}
+            avatar={BotIcon}
           />
         </Styled.BotCard>
       </Styled.BotCardContainer>

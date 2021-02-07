@@ -5,14 +5,25 @@ import {
   IUIResponseBots, 
   IServerResponseAdBotConfig, 
   IUIResponseAdBotConfig,
-  botTypes 
+  botTypes,
+  BotConfigsUIResponse,
+  BotConfigsServerResponse,
+  IUIResponseMusicBotConfig,
+  IServerResponseMusicBotConfig
 } from './bots.types'
 
-const botFactory = (config: IUIResponseAdBotConfig | null, botType: botTypes): IUIResponseAdBotConfig => {
+const botFactory = (config: BotConfigsServerResponse | null, botType: botTypes): BotConfigsUIResponse => {
   switch (botType) {
     case 'ad': {
+      const conf = config as IServerResponseAdBotConfig
       return {
-        ads: config.ads || []
+        ads: conf.ads || []
+      }
+    }
+    case 'music': {
+      const conf = config as IServerResponseMusicBotConfig
+      return {
+        playList: conf.playlist
       }
     }
   }
