@@ -61,6 +61,13 @@ export interface IUIResponseMusicBotConfig {
   playList: string[]
 }
 
+export interface IServerResponseYoutubeVideInfo {
+  id: string;
+  title: string;
+  img: string;
+  description: string;
+}
+
 
 
 export type BotConfigsRequest = ServerRequestBotAdConfig
