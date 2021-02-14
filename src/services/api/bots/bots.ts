@@ -5,7 +5,7 @@ import { unpackBot, unpackBots } from './bots.mappers'
 const botURL = 'bots/bot'
 const editBotURL = (botId: string) =>  `bots/bot/${botId}` 
 const botsURL = 'bots/get-bots'
-const youtubeURL = (ytVideoId: string) => `bots/youtube/${ytVideoId}`
+const youtubeURL = (ytVideoId: string) => `music/${ytVideoId}`
 
 export const addBot = async (body: IServerRequestBot): Promise<IUIResponseBot> => {
   const { data } = await mainApi.post<IServerResponseBot>(botURL, body, {
@@ -32,7 +32,7 @@ export const getBots = async (): Promise<IUIResponseBots> => {
 }
 
 export const getYoutubeVideoInfo = async (link: string) => {
-  const { data } = await mainApi.get<IServerResponseYoutubeVideInfo>(getYoutubeId(link), {
+  const { data } = await mainApi.get<IServerResponseYoutubeVideInfo>(youtubeURL(getYoutubeId(link)), {
     withCredentials: true
   })
 

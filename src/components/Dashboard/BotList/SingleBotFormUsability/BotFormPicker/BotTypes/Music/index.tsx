@@ -1,35 +1,40 @@
 import * as React from 'react'
 import * as Styled from './Music.styles'
-import { IUIResponseMusicBotConfig } from '../../../../../../../services/api/bots/bots.types'
+import { IUIResponseMusicBotConfig, IServerResponseYoutubeVideInfo } from '../../../../../../../services/api/bots/bots.types'
 import { Card } from 'antd';
 import { api } from '../../../../../../../services/api'
+import { Form, Input, Button, Switch, TimePicker, Select } from 'antd';
+import { Controller, useForm, Control, ArrayField } from 'react-hook-form'
+import cogoToast from 'cogo-toast';
 
 interface IMusicBot {
   config: IUIResponseMusicBotConfig
 }
 
-const MusicBot: React.FC<IMusicBot> = ({ config }) => {
-  const [links, setLink] = React.useState([
-    'link1',
-    'link2',
-    'link3',
-    'link4',
-    'link5',
-  ])
+interface IMusicBotForm {
+  songLink: string
+}
 
+const MusicBot: React.FC<IMusicBot> = ({ config }) => {
+  const { control, handleSubmit } = useForm<IMusicBotForm>()
+  const [links, setLink] = React.useState<IServerResponseYoutubeVideInfo[]>([])
   const [dragArea, setDragArea] = React.useState<null | number>(null)
-  const [dragableElement, setDragableElement] = React.useState<null | number>(null)
-  const [isDragging, setDragging] = React.useState<boolean>(false)
+  const [pendings, setPendings] = React.useState({
+    addMusic: false,
+    saveForm: false
+  })
   
   function dragstart_handler(ev: React.DragEvent) {
     ev.dataTransfer.setData("application/my-app", ev.currentTarget.id);
     ev.dataTransfer.effectAllowed = "copyMove";
   }
+  
   function dragover_handler(ev: React.DragEvent) {
     ev.preventDefault();
     setDragArea(Number(ev.currentTarget.id))
     ev.dataTransfer.dropEffect = "copy";
   }
+  
   function drop_handler(ev: React.DragEvent) {
     ev.preventDefault();
     const data: string = ev.dataTransfer.getData("application/my-app");
@@ -50,16 +55,47 @@ const MusicBot: React.FC<IMusicBot> = ({ config }) => {
     setDragArea(_ => null)
   }
 
-  const getYoutubeData = async () => {
-    const data = await api.bot.getYoutubeVide('https://www.youtube.com/watch?v=pasFN9NBXEs')
-    console.log(data)
+  const getYoutubeData = async (data: IMusicBotForm) => {
+    setPendings(pendings => ({
+      ...pendings,
+      addMusic: true
+    }))
+    try {
+      const response = await api.bot.getYoutubeVide(data.songLink)
+      setLink(links => [...links, response])
+    } catch (err) {
+      cogoToast.error(err.message)
+    } finally {
+      setPendings(pendings => ({
+        ...pendings,
+        addMusic: false
+      }))
+    }
   }
 
   return (
     <Styled.MusicBot>
-      <button onClick={getYoutubeData}>
+      <Styled.AddMusicTop>
+        <Form.Item label='Youtube link'>
+          <Controller 
+            as={Input}
+            name='songLink'
+            control={control}
+            rules={{
+              required: true
+            }}
+          />
+        </Form.Item>
+        <Button type="primary" onClick={handleSubmit(getYoutubeData)} loading={pendings.addMusic}>
+          Add song
+        </Button>
+        <Button type="primary" >
+          Save playlist
+        </Button>
+      </Styled.AddMusicTop>
+      {/* <button onClick={getYoutubeData}>
         yt
-      </button>
+      </button> */}
       {/* <p id="p1" draggable="true" onDragStart={dragstart_handler}>This element is draggable.</p>
       <div id="target" onDrop={drop_handler} onDragOver={dragover_handler}>Drop Zone</div> */}
       {links.map((link, index) => {
@@ -75,13 +111,20 @@ const MusicBot: React.FC<IMusicBot> = ({ config }) => {
             isDragOver={index === dragArea}
           >
             <Card 
-              title={link} 
+              title={
+                <Styled.AddMusicSingleSongHeader>
+                  <Styled.AddMusicSingleSongTitleImage src={link.img} />
+                  <Styled.AddMusicSingleSongTitle>
+                    {link.title}
+                  </Styled.AddMusicSingleSongTitle>
+                </Styled.AddMusicSingleSongHeader>
+              } 
               style={{
                 width: '100%',
                 height: '100%'
               }}
             >
-              {link}
+              {link.description}
             </Card>
           </Styled.SingleSongContainer>
         )

@@ -47,6 +47,9 @@ export interface IServerResponseAdBotConfig {
 export interface ServerRequestBotAdConfig {
   ads: ServerRequestBotAdConfigAds[]
 }
+export interface ServerRequestBotMusicConfig {
+  playlist: string[]
+}
 
 export interface ServerRequestBotAdConfigAds {
   day: string
@@ -70,6 +73,6 @@ export interface IServerResponseYoutubeVideInfo {
 
 
 
-export type BotConfigsRequest = ServerRequestBotAdConfig
+export type BotConfigsRequest = ServerRequestBotAdConfig | ServerRequestBotMusicConfig
 export type BotConfigsUIResponse = IUIResponseMusicBotConfig | IUIResponseAdBotConfig
 export type BotConfigsServerResponse = IServerResponseMusicBotConfig | IServerResponseAdBotConfig

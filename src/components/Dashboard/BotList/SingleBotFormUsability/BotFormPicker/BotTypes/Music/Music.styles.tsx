@@ -13,7 +13,7 @@ export const MusicBotx = styled.div`
 `
 
 export const SingleSongContainer = styled.div`
-  height: 130px;
+  height: auto;
   width: 100%;
   display: flex;
   align-items: flex-end;
@@ -26,4 +26,28 @@ export const SingleSongContainer = styled.div`
   ${(props: { isDragOver: boolean }) => props.isDragOver && css`
     border: 1px solid #1890ff;
   `}
+` 
+
+export const AddMusicTop = styled.div`
+  max-width: 100%;
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 50% 20% 30%;
+  grid-column-gap: 10px;
+`
+
+export const AddMusicSingleSongHeader = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  grid-column-gap: 10px;
+`
+
+export const AddMusicSingleSongTitle = styled.div`
+  font-size: 15px;
+  font-weight: 700;
+`
+
+export const AddMusicSingleSongTitleImage = styled.img`
+  
 `
