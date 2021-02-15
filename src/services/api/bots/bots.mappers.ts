@@ -17,13 +17,15 @@ const botFactory = (config: BotConfigsServerResponse | null, botType: botTypes):
     case 'ad': {
       const conf = config as IServerResponseAdBotConfig
       return {
-        ads: conf.ads || []
+        ads: conf.ads || [],
+        type: botType
       }
     }
     case 'music': {
       const conf = config as IServerResponseMusicBotConfig
       return {
-        playList: conf.playlist
+        playList: conf.playlist,
+        type: botType
       }
     }
   }

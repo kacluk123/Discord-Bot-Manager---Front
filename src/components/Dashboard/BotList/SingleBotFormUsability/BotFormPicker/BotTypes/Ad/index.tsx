@@ -17,7 +17,7 @@ interface AdBot {
 }
 
 const AdBot: React.FC<AdBot> = ({ config }) => {
-  const { mutate, data, replaceData } = useBots()
+  const { mutate, data, replaceData, getCurrentPickedBot } = useBots()
   const [isPending, setPending] = React.useState<boolean>(false)
   const router = useRouter()
   const { botId } = router.query
@@ -48,9 +48,15 @@ const AdBot: React.FC<AdBot> = ({ config }) => {
         })
 
         if (typeof botId === 'string') {
-          const response = await api.bot.editBot({ config: { ads: requestData } }, botId)
-          replaceData(response)
-          cogoToast.success('Bot data saved succesfully!')
+          const botType = getCurrentPickedBot(botId).type
+          if (botType === 'ad') {
+            const response = await api.bot.editBot({ config: { 
+              ads: requestData,
+              type: botType
+            } }, botId)
+            replaceData(response)
+            cogoToast.success('Bot data saved succesfully!')
+          }
         }
       } catch (err) {
         cogoToast.error(err.message)

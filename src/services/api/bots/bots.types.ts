@@ -37,17 +37,21 @@ export interface ServerResponseBotAdConfigAds {
 
 export interface IUIResponseAdBotConfig {
   ads: ServerResponseBotAdConfigAds[]
+  type: 'ad'
 }
 
 export interface IServerResponseAdBotConfig {
   id: number
   ads: ServerResponseBotAdConfigAds[]
+  type: 'ad'
 }
 
 export interface ServerRequestBotAdConfig {
+  type: 'ad'
   ads: ServerRequestBotAdConfigAds[]
 }
 export interface ServerRequestBotMusicConfig {
+  type: 'music'
   playlist: string[]
 }
 
@@ -59,9 +63,11 @@ export interface ServerRequestBotAdConfigAds {
 
 export interface IServerResponseMusicBotConfig {
   playlist: string[]
+  type: 'music'
 }
 export interface IUIResponseMusicBotConfig {
   playList: string[]
+  type: 'music'
 }
 
 export interface IServerResponseYoutubeVideInfo {

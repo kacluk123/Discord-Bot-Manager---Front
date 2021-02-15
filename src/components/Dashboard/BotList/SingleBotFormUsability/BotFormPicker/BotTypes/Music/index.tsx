@@ -6,6 +6,8 @@ import { api } from '../../../../../../../services/api'
 import { Form, Input, Button, Switch, TimePicker, Select } from 'antd';
 import { Controller, useForm, Control, ArrayField } from 'react-hook-form'
 import cogoToast from 'cogo-toast';
+import { useRouter } from 'next/router';
+import useBots from '@/remote/bots';
 
 interface IMusicBot {
   config: IUIResponseMusicBotConfig
@@ -23,6 +25,38 @@ const MusicBot: React.FC<IMusicBot> = ({ config }) => {
     addMusic: false,
     saveForm: false
   })
+  const router = useRouter()
+  const { botId } = router.query
+  const { getCurrentPickedBot } = useBots()
+
+
+  const onSubmit = async () => {
+    setPendings(pendings => ({
+      ...pendings,
+      saveForm: true
+    }))
+    try {
+      if (typeof botId === 'string') {
+        const botType = getCurrentPickedBot(botId).type 
+        if (botType === 'music') {
+          const response = await api.bot.editBot({ config: { 
+            playlist: links.map(link => link.id),
+            type: botType
+          } }, botId)
+          // replaceData(response)
+          cogoToast.success('Bot data saved succesfully!')
+        }
+      }
+    } catch (err) {
+      cogoToast.error(err.message)
+    } finally {
+      setPendings(pendings => ({
+        ...pendings,
+        saveForm: false
+      }))
+    }
+    
+  }
   
   function dragstart_handler(ev: React.DragEvent) {
     ev.dataTransfer.setData("application/my-app", ev.currentTarget.id);
@@ -89,7 +123,7 @@ const MusicBot: React.FC<IMusicBot> = ({ config }) => {
         <Button type="primary" onClick={handleSubmit(getYoutubeData)} loading={pendings.addMusic}>
           Add song
         </Button>
-        <Button type="primary" >
+        <Button type="primary" onClick={onSubmit}>
           Save playlist
         </Button>
       </Styled.AddMusicTop>
