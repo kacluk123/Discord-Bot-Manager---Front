@@ -19,7 +19,8 @@ interface IMusicBotForm {
 
 const MusicBot: React.FC<IMusicBot> = ({ config }) => {
   const { control, handleSubmit } = useForm<IMusicBotForm>()
-  const [links, setLink] = React.useState<IServerResponseYoutubeVideInfo[]>([])
+  
+  const [links, setLink] = React.useState<IServerResponseYoutubeVideInfo[]>(config.playList)
   const [dragArea, setDragArea] = React.useState<null | number>(null)
   const [pendings, setPendings] = React.useState({
     addMusic: false,

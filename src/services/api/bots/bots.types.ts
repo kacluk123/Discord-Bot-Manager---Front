@@ -62,11 +62,11 @@ export interface ServerRequestBotAdConfigAds {
 }
 
 export interface IServerResponseMusicBotConfig {
-  playlist: string[]
+  playlist: IServerResponseYoutubeVideInfo[]
   type: 'music'
 }
 export interface IUIResponseMusicBotConfig {
-  playList: string[]
+  playList: IServerResponseYoutubeVideInfo[]
   type: 'music'
 }
 
