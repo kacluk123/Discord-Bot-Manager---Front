@@ -4,6 +4,7 @@ import { IUIResponseMusicBotConfig, IServerResponseYoutubeVideInfo } from '../..
 import { Card } from 'antd';
 import { api } from '../../../../../../../services/api'
 import { Form, Input, Button, Switch, TimePicker, Select } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
 import { Controller, useForm, Control, ArrayField } from 'react-hook-form'
 import cogoToast from 'cogo-toast';
 import { useRouter } from 'next/router';
@@ -12,14 +13,12 @@ import useBots from '@/remote/bots';
 interface IMusicBot {
   config: IUIResponseMusicBotConfig
 }
-
 interface IMusicBotForm {
   songLink: string
 }
 
 const MusicBot: React.FC<IMusicBot> = ({ config }) => {
   const { control, handleSubmit } = useForm<IMusicBotForm>()
-  
   const [links, setLink] = React.useState<IServerResponseYoutubeVideInfo[]>(config.playList)
   const [dragArea, setDragArea] = React.useState<null | number>(null)
   const [pendings, setPendings] = React.useState({
@@ -108,6 +107,12 @@ const MusicBot: React.FC<IMusicBot> = ({ config }) => {
     }
   }
 
+  const deletYTVideo = (indexToDelete: number) => {
+    setLink(links => {
+      return links.filter((_, index) => indexToDelete !== index)
+    })
+  }
+
   return (
     <Styled.MusicBot>
       <Styled.AddMusicTop>
@@ -134,7 +139,7 @@ const MusicBot: React.FC<IMusicBot> = ({ config }) => {
       {/* <p id="p1" draggable="true" onDragStart={dragstart_handler}>This element is draggable.</p>
       <div id="target" onDrop={drop_handler} onDragOver={dragover_handler}>Drop Zone</div> */}
       {links.map((link, index) => {
-        console.log(index === Number(dragArea))
+
         return (
           <Styled.SingleSongContainer
             id={index.toString()} 
@@ -144,7 +149,10 @@ const MusicBot: React.FC<IMusicBot> = ({ config }) => {
             onDragStart={dragstart_handler} 
             draggable="true"
             isDragOver={index === dragArea}
-          >
+          > 
+            <Styled.CloseIconContainer>
+              <CloseOutlined onClick={() => { deletYTVideo(index) }}/>
+            </Styled.CloseIconContainer>
             <Card 
               title={
                 <Styled.AddMusicSingleSongHeader>
@@ -156,7 +164,8 @@ const MusicBot: React.FC<IMusicBot> = ({ config }) => {
               } 
               style={{
                 width: '100%',
-                height: '100%'
+                height: '195px',
+                overflow: 'hidden'
               }}
             >
               {link.description}

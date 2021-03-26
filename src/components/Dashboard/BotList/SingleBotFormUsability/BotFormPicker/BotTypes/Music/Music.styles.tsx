@@ -4,6 +4,7 @@ export const MusicBot = styled.div`
   width: 100%;
   height: 100%;
   padding: 50px;
+  overflow: auto;
 `
 
 export const MusicBotx = styled.div`
@@ -17,6 +18,7 @@ export const SingleSongContainer = styled.div`
   width: 100%;
   display: flex;
   align-items: flex-end;
+  position: relative;
   & {
     .ant-card-bordered:hover {
       cursor: pointer;
@@ -27,6 +29,14 @@ export const SingleSongContainer = styled.div`
     border: 1px solid #1890ff;
   `}
 ` 
+
+export const CloseIconContainer = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  z-index: 10;
+`
 
 export const AddMusicTop = styled.div`
   max-width: 100%;
