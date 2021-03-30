@@ -18,7 +18,8 @@ const botFactory = (config: BotConfigsServerResponse | null, botType: botTypes):
       const conf = config as IServerResponseAdBotConfig
       return {
         ads: conf.ads || [],
-        type: botType
+        type: botType,
+        channelsToSend: conf.channelsToSend || []
       }
     }
     case 'music': {

@@ -37,18 +37,21 @@ export interface ServerResponseBotAdConfigAds {
 
 export interface IUIResponseAdBotConfig {
   ads: ServerResponseBotAdConfigAds[]
+  channelsToSend: string[]
   type: 'ad'
 }
 
 export interface IServerResponseAdBotConfig {
   id: number
   ads: ServerResponseBotAdConfigAds[]
+  channelsToSend: string[]
   type: 'ad'
 }
 
 export interface ServerRequestBotAdConfig {
   type: 'ad'
   ads: ServerRequestBotAdConfigAds[]
+  channelsToSend: string[]
 }
 export interface ServerRequestBotMusicConfig {
   type: 'music'

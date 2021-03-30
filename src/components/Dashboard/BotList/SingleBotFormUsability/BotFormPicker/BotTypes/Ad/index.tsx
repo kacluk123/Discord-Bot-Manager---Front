@@ -35,6 +35,7 @@ const AdBot: React.FC<AdBot> = ({ config }) => {
   }, [config])
 
   const onSubmit = async (data?: {ads: { time: moment.Moment, id: string, day: string }[]}) => {
+    console.log(config)
     if (data) {
       setPending(true)
       try {
@@ -52,7 +53,8 @@ const AdBot: React.FC<AdBot> = ({ config }) => {
           if (botType === 'ad') {
             const response = await api.bot.editBot({ config: { 
               ads: requestData,
-              type: botType
+              type: botType,
+              channelsToSend: config.channelsToSend
             } }, botId)
             replaceData(response)
             cogoToast.success('Bot data saved succesfully!')

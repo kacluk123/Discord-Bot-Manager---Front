@@ -28,6 +28,7 @@ const SingleBotFormGeneral: React.FC<SingleBotFormGeneral> = ({ bot }) => {
     setPending(true)
     try {
       const response = await api.bot.editBot(data, bot.id)
+      console.log(data)
       replaceBot(response)
       cogoToast.success('Bot data saved sucesfully!')
     } catch (err) {
@@ -72,7 +73,7 @@ const SingleBotFormGeneral: React.FC<SingleBotFormGeneral> = ({ bot }) => {
             )}
             name='isActive'
             control={control}
-            rules={{required: true}}
+            // rules={{required: true}}
           />
           <Button 
             type="primary" 
