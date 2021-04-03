@@ -13,6 +13,7 @@ export const api = {
     createBot: bot.addBot,
     getAllBots: bot.getBots,
     editBot: bot.editBot,
-    getYoutubeVide: bot.getYoutubeVideoInfo
+    getYoutubeVide: bot.getYoutubeVideoInfo,
+    deleteBot: bot.deleteBot
   }
 }

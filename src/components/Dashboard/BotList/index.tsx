@@ -17,16 +17,16 @@ const BotsListContainer: React.FC = () => {
   } = useBots()
 
   React.useEffect(() => {
-    if (data) {
+    if (data?.bots[0]) {
       router.push(`/dashboard/bot-list/${data.bots[0].id}/general`)
-    }
+    } 
   }, [data])
   
   return error ? (
     <MainLayout>
       Failed to load bot list
     </MainLayout>
-  ) : <MainLayout />
+  ) : <MainLayout>No bots currently created!</MainLayout>
 }
 
 export default ProtectRoute(BotsListContainer)

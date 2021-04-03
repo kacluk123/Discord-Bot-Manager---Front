@@ -34,3 +34,35 @@ export const BotCardContainer = styled.div.attrs({
     }
   `}
 `
+
+export const DeleteButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  
+  &:hover {
+    span {
+      color: var(--Blue) !important;;
+    }
+  }
+`
+
+export const DeletePopoverContent = styled.div`
+  display: grid;
+  grid-auto-flow: column;
+  grid-column-gap: 30px;
+  grid-auto-columns: max-content;
+`
+
+export const PopoverDelete = styled.div`
+  color: var(--Danger);
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+`
+export const PopoverNotDelete = styled.div`
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+`

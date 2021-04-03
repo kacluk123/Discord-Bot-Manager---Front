@@ -52,6 +52,16 @@ const useBots = () => {
     })
   }
 
+  const deleteBot = (botId: string) => {
+    const { bots } = data
+    const replacedList = bots.filter((bot) => bot.id !== botId)
+    
+    mutate({
+      ...data,
+      bots: replacedList
+    })
+  }
+
   return {
     data, 
     error, 
@@ -59,7 +69,8 @@ const useBots = () => {
     mutate, 
     replaceBot,
     replaceData,
-    getCurrentPickedBot
+    getCurrentPickedBot,
+    deleteBot
   }
 }
 

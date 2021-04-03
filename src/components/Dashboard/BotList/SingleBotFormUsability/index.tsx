@@ -27,7 +27,7 @@ const UsabilityBotsListContainer: React.FC<BotsListContainer> = ({ botId }) => {
     <MainLayout>
       <BotPageContainer>
         {data?.bots && <BotList bots={data.bots} currentPickedBot={botId} />}
-        {data?.bots ? <BotFormPicker bot={getCurrentPickedBot(botId)} /> : null}
+        {data?.bots.length > 0 ? <BotFormPicker bot={getCurrentPickedBot(botId)} /> : null}
       </BotPageContainer>
     </MainLayout>
   )

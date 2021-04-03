@@ -3,7 +3,8 @@ import { createGlobalStyle } from 'styled-components'
 export const GlobalStyle = createGlobalStyle`
   :root {
     --Grey: #BFBFBF;
-    --Blue: #1890ff
+    --Blue: #1890ff;
+    --Danger: #FF4136;
   }
   /* width */
   ::-webkit-scrollbar {

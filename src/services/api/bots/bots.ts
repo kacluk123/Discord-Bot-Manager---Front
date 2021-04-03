@@ -31,6 +31,12 @@ export const getBots = async (): Promise<IUIResponseBots> => {
   return unpackBots(data)
 }
 
+export const deleteBot = async (id: string): Promise<void> => {
+  await mainApi.delete(editBotURL(id), {
+    withCredentials: true
+  })
+}
+
 export const getYoutubeVideoInfo = async (link: string) => {
   const { data } = await mainApi.get<IServerResponseYoutubeVideInfo>(youtubeURL(getYoutubeId(link)), {
     withCredentials: true
