@@ -8,7 +8,7 @@ import { CloseOutlined } from '@ant-design/icons';
 import { Controller, useForm, Control, ArrayField } from 'react-hook-form'
 import cogoToast from 'cogo-toast';
 import { useRouter } from 'next/router';
-import useBots from '@/remote/bots';
+import useBots from '../../../../../../../remote/bots';
 
 interface IMusicBot {
   config: IUIResponseMusicBotConfig

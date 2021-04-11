@@ -6,9 +6,9 @@ import { Skeleton, Switch, Card, Avatar, Popover } from 'antd';
 import { MoneyCollectOutlined, StepForwardOutlined, DeleteFilled } from '@ant-design/icons';
 import { useRouter } from "next/router";
 import Link from 'next/link'
-import { api } from '@/services/api';
+import { api } from '../../../services/api';
 import cogoToast from 'cogo-toast';
-import useBots from '@/remote/bots';
+import useBots from '../../../remote/bots';
 
 const { Meta } = Card
 
@@ -37,7 +37,7 @@ const getBotIcon: {[k in botTypes]: React.ReactNode} = {
 
 
 const SingleBotCard: React.FC<ISingleBotCard> = ({ bot, currentPickedBot }) => {
-  const { deleteBot } = useBots()
+  const { deleteBot, data } = useBots()
   const [ isDeletePopoverVisible, setVisibilityOfPopover ] = React.useState<boolean>(false)
   const router = useRouter()
   const BotIcon = getBotIcon[bot.type]
@@ -47,7 +47,11 @@ const SingleBotCard: React.FC<ISingleBotCard> = ({ bot, currentPickedBot }) => {
       await api.bot.deleteBot(bot.id)
       cogoToast.success('Bot deleted sucesfully!')
       deleteBot(bot.id)
-      router.push(`/dashboard/bot-list`)
+      if (data.bots.length > 0) {
+        router.push(`/dashboard/bot-list/${data.bots[0].id}/general`)
+      } else {
+        router.push(`/dashboard/bot-list`)
+      }
     } catch {
       cogoToast.success('Failed to delete bot')
     }
