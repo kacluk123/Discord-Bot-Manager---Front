@@ -3,7 +3,7 @@ import { Button } from 'antd';
 import * as Styled from './login.styles'
 import { api } from '../../services/api'
 
-const config = require('../../../config.json')
+const config = require('../../../data/config.json')
 
 export default function Home() {
 

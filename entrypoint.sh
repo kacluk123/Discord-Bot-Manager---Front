@@ -3,7 +3,7 @@ if [ -z "$API_URL" ]; then
   exit 1
 fi
 
-cat <<EOF >/config.json
+cat <<EOF >/data/config.json
 {
   "apiUrl": "$API_URL",
 }
