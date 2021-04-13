@@ -6,6 +6,7 @@ COPY ./src /web
 COPY ./package.json /web
 COPY ./tsconfig.json /web
 COPY ./.babelrc /web
+COPY ./next.config.js /web
 
 WORKDIR /web
 
