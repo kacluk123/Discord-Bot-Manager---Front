@@ -1,6 +1,8 @@
 import axios from "axios";
 
-export const MAIN_API_URL = `${process.env.apiUrl}/`;
+const config = require('../../../config.json')
+
+export const MAIN_API_URL = `${config.apiUrl}/`;
 
 export const mainApi = axios.create({
   baseURL: MAIN_API_URL

@@ -6,6 +6,7 @@ COPY ./src /web
 COPY ./package.json /web
 COPY ./tsconfig.json /web
 COPY ./.babelrc /web
+COPY ./entrypoint.sh /web
 
 WORKDIR /web
 
@@ -14,4 +15,5 @@ RUN yarn build
 
 ENV NODE_ENV production
 
+ENTRYPOINT ["sh", "./entrypoint.sh"]
 CMD ["sh", "-c", "yarn start -p $PORT"]
