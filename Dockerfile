@@ -6,7 +6,6 @@ COPY ./src /web
 COPY ./package.json /web
 COPY ./tsconfig.json /web
 COPY ./.babelrc /web
-COPY ./entrypoint.sh /web
 
 WORKDIR /web
 
