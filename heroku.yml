@@ -1,3 +1,5 @@
 build:
   docker:
     web: Dockerfile
+  config:
+    API_URL: https://discord-bot-manager-2222.herokuapp.com
