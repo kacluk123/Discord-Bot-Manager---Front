@@ -6,6 +6,8 @@ COPY . /web
 
 WORKDIR /web
 
+ARG API_URL
+
 RUN yarn install
 RUN yarn build
 
