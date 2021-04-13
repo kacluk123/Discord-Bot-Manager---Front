@@ -15,5 +15,4 @@ RUN yarn build
 
 ENV NODE_ENV production
 
-ENTRYPOINT ["sh", "./entrypoint.sh"]
 CMD ["sh", "-c", "yarn start -p $PORT"]
