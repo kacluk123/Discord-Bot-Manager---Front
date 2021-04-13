@@ -1,5 +1,5 @@
 module.exports = {
-  env: {
+  publicRuntimeConfig: {
     apiUrl: process.env.API_URL,
   },
 };
