@@ -7,6 +7,7 @@ const useBots = () => {
     data, 
     error, 
     mutate, 
+    revalidate
   } = useSWR<IUIResponseBots>('/api/bots/get-bots', api.bot.getAllBots, {
     revalidateOnFocus: false,
     revalidateOnMount:true,
@@ -70,7 +71,8 @@ const useBots = () => {
     replaceBot,
     replaceData,
     getCurrentPickedBot,
-    deleteBot
+    deleteBot,
+    revalidate
   }
 }
 

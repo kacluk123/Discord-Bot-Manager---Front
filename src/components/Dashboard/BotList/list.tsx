@@ -37,21 +37,25 @@ const getBotIcon: {[k in botTypes]: React.ReactNode} = {
 
 
 const SingleBotCard: React.FC<ISingleBotCard> = ({ bot, currentPickedBot }) => {
-  const { deleteBot, data } = useBots()
+  const { deleteBot, data, revalidate } = useBots()
   const [ isDeletePopoverVisible, setVisibilityOfPopover ] = React.useState<boolean>(false)
   const router = useRouter()
   const BotIcon = getBotIcon[bot.type]
   
   const removeBot = async () => {
+    let botsLength = data.bots.length
     try {
       await api.bot.deleteBot(bot.id)
-      cogoToast.success('Bot deleted sucesfully!')
-      deleteBot(bot.id)
-      if (data.bots.length > 0) {
+      botsLength = botsLength - 1
+
+      if (botsLength > 0 && bot.id !== currentPickedBot) {
         router.push(`/dashboard/bot-list/${data.bots[0].id}/general`)
       } else {
         router.push(`/dashboard/bot-list`)
       }
+      
+      await revalidate()
+
     } catch {
       cogoToast.success('Failed to delete bot')
     }
