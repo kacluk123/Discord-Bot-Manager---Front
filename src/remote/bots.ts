@@ -28,7 +28,7 @@ const useBots = () => {
   }
 
   const getCurrentPickedBot = (botId: string) => {
-    return data.bots.find(bot => bot.id === botId)
+    return data?.bots?.find(bot => bot.id === botId)
   }
 
   const addBot = (newBot: IUIResponseBot) => {

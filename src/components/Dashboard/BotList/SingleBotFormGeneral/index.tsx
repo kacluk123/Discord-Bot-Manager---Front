@@ -9,6 +9,7 @@ import ProtectRoute from '../../../../hoc/ProtectRoute'
 import { BotPageContainer } from '../Common/bots.styles'
 import SingleBotFormGeneral from './SingleBotFormGeneral'
 import useBots from '../../../../remote/bots'
+import { useRouter } from 'next/router'
 
 interface BotsListContainer {
   botId?: string
@@ -19,14 +20,24 @@ const BotsListContainer: React.FC<BotsListContainer> = ({ botId }) => {
     data, 
     error, 
     mutate, 
-    getCurrentPickedBot
+    getCurrentPickedBot,
   } = useBots()
+  const router = useRouter()
+
+  React.useEffect(() => {
+    const bot = getCurrentPickedBot(botId)
+    if (!bot && data?.bots) {
+      router.push(`/dashboard/bot-list/${data.bots[0].id}/general`)
+    }
+  }, [botId, data?.bots.length])
+
+  const bot = getCurrentPickedBot(botId)
 
   return (
     <MainLayout>
       <BotPageContainer>
         {data?.bots && <BotList bots={data.bots} currentPickedBot={botId} />}
-        {data?.bots.length > 0 ? <SingleBotFormGeneral bot={getCurrentPickedBot(botId)} /> : null}
+        {data?.bots.length > 0 && bot ? <SingleBotFormGeneral bot={getCurrentPickedBot(botId)} /> : null}
       </BotPageContainer>
     </MainLayout>
   )

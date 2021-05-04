@@ -46,11 +46,10 @@ const SingleBotCard: React.FC<ISingleBotCard> = ({ bot, currentPickedBot }) => {
     let botsLength = data.bots.length
     try {
       await api.bot.deleteBot(bot.id)
-      botsLength = botsLength - 1
-
-      if (botsLength > 0 && bot.id !== currentPickedBot) {
+      console.log(bot.id, currentPickedBot)
+      if (bot.id === currentPickedBot) {
         router.push(`/dashboard/bot-list/${data.bots[0].id}/general`)
-      } else {
+      } else if (data.bots.length === 0) {
         router.push(`/dashboard/bot-list`)
       }
       
