@@ -42,26 +42,23 @@ const SingleBotCard: React.FC<ISingleBotCard> = ({ bot, currentPickedBot }) => {
   const router = useRouter()
   const BotIcon = getBotIcon[bot.type]
   
-  const removeBot = async () => {
-    let botsLength = data.bots.length
+  const removeBot = async (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation()
     try {
       await api.bot.deleteBot(bot.id)
-      console.log(bot.id, currentPickedBot)
-      if (bot.id === currentPickedBot) {
-        router.push(`/dashboard/bot-list/${data.bots[0].id}/general`)
-      } else if (data.bots.length === 0) {
-        router.push(`/dashboard/bot-list`)
-      }
-      
       await revalidate()
-
     } catch {
       cogoToast.success('Failed to delete bot')
     }
   }
 
+  const handlePopoverNo = (e: React.MouseEvent<HTMLDivElement>) => { 
+    e.stopPropagation()
+    setVisibilityOfPopover(false) 
+  }
+
   return (
-    <Link href={`/dashboard/bot-list/${bot.id}/general`}>
+    <Link href={`/dashboard/bot-list/${bot.id}/${router.pathname.includes('general') ? 'general' : 'usability'}`}>
       <Styled.BotCardContainer isBotPicked={currentPickedBot === bot.id} data-testid="bot">
         <Styled.BotCard style={{ width: '100%' }} hoverable>
           <Meta 
@@ -75,7 +72,7 @@ const SingleBotCard: React.FC<ISingleBotCard> = ({ bot, currentPickedBot }) => {
                 <Styled.PopoverDelete onClick={removeBot}>
                   Yes
                 </Styled.PopoverDelete>
-                <Styled.PopoverNotDelete onClick={() => { setVisibilityOfPopover(false) }}>
+                <Styled.PopoverNotDelete onClick={handlePopoverNo}>
                   No
                 </Styled.PopoverNotDelete>
               </Styled.DeletePopoverContent>}

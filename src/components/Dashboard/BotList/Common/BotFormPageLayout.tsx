@@ -4,10 +4,12 @@ import { Menu } from 'antd';
 import { useRouter } from "next/router";
 import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
 import Link from 'next/link'
+import useBots from 'src/remote/bots';
 
 const BotFormPageLayout: React.FC = ({ children }) => {
   const router = useRouter()
   const { botId } = router.query
+  const { replaceBot, data, getCurrentPickedBot } = useBots()
 
   const getCurrentOpenedSettingLabel = () => {
     if (router.pathname.includes('general')) {

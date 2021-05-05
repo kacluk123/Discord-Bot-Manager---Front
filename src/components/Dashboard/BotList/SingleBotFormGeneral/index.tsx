@@ -22,6 +22,7 @@ const BotsListContainer: React.FC<BotsListContainer> = ({ botId }) => {
     mutate, 
     getCurrentPickedBot,
   } = useBots()
+  
   const router = useRouter()
 
   React.useEffect(() => {
