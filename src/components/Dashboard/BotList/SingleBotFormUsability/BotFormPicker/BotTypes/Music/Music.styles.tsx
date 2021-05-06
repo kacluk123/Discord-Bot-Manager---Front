@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 export const MusicBot = styled.div`
   width: 100%;
   height: 100%;
-  padding: 50px;
+  padding: 25px 50px 50px 50px;
   overflow: auto;
 `
 
@@ -42,7 +42,8 @@ export const AddMusicTop = styled.div`
   max-width: 100%;
   display: grid;
   grid-auto-flow: column;
-  grid-template-columns: 50% 20% 30%;
+  margin-top: 30px;
+  grid-template-columns: 90% 1fr;
   grid-column-gap: 10px;
 `
 
@@ -60,4 +61,18 @@ export const AddMusicSingleSongTitle = styled.div`
 
 export const AddMusicSingleSongTitleImage = styled.img`
   
+`
+
+export const AddSongButtonText = styled.div`
+  font-size: 20px;
+  margin-bottom: 4px;
+`
+
+export const AddSongButtonContainer = styled.div`
+
+`
+
+export const SavePlaylistButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `

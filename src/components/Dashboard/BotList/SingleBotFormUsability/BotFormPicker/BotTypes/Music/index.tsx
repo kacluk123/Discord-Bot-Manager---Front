@@ -4,7 +4,7 @@ import { IUIResponseMusicBotConfig, IServerResponseYoutubeVideInfo } from '../..
 import { Card } from 'antd';
 import { api } from '../../../../../../../services/api'
 import { Form, Input, Button, Switch, TimePicker, Select } from 'antd';
-import { CloseOutlined } from '@ant-design/icons';
+import { CloseOutlined, PlusOutlined, SaveOutlined } from '@ant-design/icons';
 import { Controller, useForm, Control, ArrayField } from 'react-hook-form'
 import cogoToast from 'cogo-toast';
 import { useRouter } from 'next/router';
@@ -115,6 +115,12 @@ const MusicBot: React.FC<IMusicBot> = ({ config }) => {
 
   return (
     <Styled.MusicBot>
+      <Styled.SavePlaylistButtonContainer>
+        <Button onClick={onSubmit} type="primary" loading={pendings.saveForm}>
+          Save playlist
+          <SaveOutlined size={2} />
+        </Button>
+      </Styled.SavePlaylistButtonContainer>  
       <Styled.AddMusicTop>
         <Form.Item label='Youtube link'>
           <Controller 
@@ -126,18 +132,10 @@ const MusicBot: React.FC<IMusicBot> = ({ config }) => {
             }}
           />
         </Form.Item>
-        <Button type="primary" onClick={handleSubmit(getYoutubeData)} loading={pendings.addMusic}>
-          Add song
-        </Button>
-        <Button type="primary" onClick={onSubmit}>
-          Save playlist
-        </Button>
+          <Button onClick={handleSubmit(getYoutubeData)} loading={pendings.addMusic} shape="round">
+            <PlusOutlined />
+          </Button>
       </Styled.AddMusicTop>
-      {/* <button onClick={getYoutubeData}>
-        yt
-      </button> */}
-      {/* <p id="p1" draggable="true" onDragStart={dragstart_handler}>This element is draggable.</p>
-      <div id="target" onDrop={drop_handler} onDragOver={dragover_handler}>Drop Zone</div> */}
       {links.map((link, index) => {
 
         return (

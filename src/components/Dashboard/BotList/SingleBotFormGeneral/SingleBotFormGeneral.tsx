@@ -7,6 +7,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { api } from '../../../../services/api'
 import useBots from '../../../../remote/bots'
 import cogoToast from 'cogo-toast';
+import { SaveOutlined } from '@ant-design/icons';
 interface SingleBotFormGeneral {
   bot: IUIResponseBot
 }
@@ -62,26 +63,29 @@ const SingleBotFormGeneral: React.FC<SingleBotFormGeneral> = ({ bot }) => {
               rules={{required: true}}
             />
           </Form.Item>
-          <Controller 
-            render={({ value, onChange }) => (
-              <Switch 
-                checked={value}
-                data-testid='generalIsActive'
-                onChange={onChange}
-                defaultChecked={bot.isActive}
-              />
-            )}
-            name='isActive'
-            control={control}
-            // rules={{required: true}}
-          />
+          <Form.Item label='Enabled'>
+            <Controller 
+              render={({ value, onChange }) => (
+                <Switch 
+                  checked={value}
+                  title='Enabled'
+                  data-testid='generalIsActive'
+                  onChange={onChange}
+                  defaultChecked={bot.isActive}
+                />
+              )}
+              name='isActive'
+              control={control}
+              // rules={{required: true}}
+            />
+          </Form.Item>
           <Button 
             type="primary" 
             onClick={handleSubmit(onSubmit)} 
             loading={isPending}
             data-testid='saveGeneralBot'
           >
-            Save
+            Save <SaveOutlined size={2} />
           </Button>
         </Styled.CreateBotFormContent>
       </Styled.SingleBotFormGeneral>
