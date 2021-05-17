@@ -1,5 +1,17 @@
 Main goal of this project was to create manager for discord bots and learn next.js with SWR
 
+To run locally you need also API:
+https://github.com/kacluk123/Discord-Bot-Manager---Backend
+
+Commands Run:
+1. yarn install
+2. yarn run dev
+
+After that go to:
+http://localhost:8080/login
+
+[Live demo (it may take a while to start because of heroku free tier)](https://bot-manager-front.herokuapp.com/login) 
+
 Technologies:
  - React
  - Next.js
@@ -22,5 +34,3 @@ Technologies:
 ![4](https://user-images.githubusercontent.com/41025347/118409991-80a6ef80-b68d-11eb-8f22-f8502c2634d0.png)
 
 ![5](https://user-images.githubusercontent.com/41025347/118409993-81d81c80-b68d-11eb-818d-22fc7d429d21.png)
-
-[Live demo (it may take a while to start because of heroku free tier)](https://bot-manager-front.herokuapp.com/login) 
